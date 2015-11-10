@@ -7,4 +7,10 @@
     <string name="view_scores">Leader board</string>
     <string name="train_yourself">Training</string>
     <string name="menu_settings">Settings</string>
+    <string name="title_activity_training">Training</string>
+    <string name="title_activity_tool_training">ToolTrainingActivity</string>
+    <string name="tool_training_feature">Features</string>
+    <string name="tool_training_application">Applications</string>
+    <string name="hilti_user_email_prompt">user@hilti.com</string>
+    <string name="hilti_user_password">password</string>
 </resources>

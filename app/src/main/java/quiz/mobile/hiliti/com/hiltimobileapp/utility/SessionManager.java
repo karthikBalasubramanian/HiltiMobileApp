@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import quiz.mobile.hiliti.com.hiltimobileapp.constants.Tags;
+
 /**
  * Created by vaishu on 06-11-2015.
  */
@@ -41,6 +43,14 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
+    public void setUserCred(String username, String email, String profilePic){
+
+        editor.putString(Tags.USER_NAME,username);
+        editor.putString(Tags.EMAIL,email);
+        editor.putString(Tags.PROFILE_PIC,profilePic);
+        editor.commit();
+        Log.d(TAG,"user details saved");
+    }
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }

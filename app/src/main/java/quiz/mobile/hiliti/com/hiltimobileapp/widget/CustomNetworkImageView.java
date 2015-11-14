@@ -16,6 +16,20 @@ public class CustomNetworkImageView extends NetworkImageView {
 
     private boolean mShowLocal;
 
+
+    public CustomNetworkImageView(Context context) {
+        super(context, null);
+    }
+
+    public CustomNetworkImageView(Context context, AttributeSet attrs) {
+        super(context, attrs, 0);
+    }
+
+    public CustomNetworkImageView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+
     public void setLocalImageBitmap(Bitmap bitmap) {
         if (bitmap != null) {
             mShowLocal = true;
@@ -28,18 +42,6 @@ public class CustomNetworkImageView extends NetworkImageView {
     public void setImageUrl(String url, ImageLoader imageLoader) {
         mShowLocal = false;
         super.setImageUrl(url, imageLoader);
-    }
-
-    public CustomNetworkImageView(Context context) {
-        this(context, null);
-    }
-
-    public CustomNetworkImageView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public CustomNetworkImageView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
     }
 
     @Override

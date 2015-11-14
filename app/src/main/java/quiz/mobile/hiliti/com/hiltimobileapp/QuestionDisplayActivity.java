@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class QuestionDisplayActivity extends AppCompatActivity {
 
     ArrayList<Question> questionList;
     TextView questionTextDisplay;
+
+    RadioGroup group;
     Button buttonA;
     Button buttonB;
     Button buttonC;
@@ -41,18 +44,21 @@ public class QuestionDisplayActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_next_question);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+
+        buttonSubmit =(Button)findViewById(R.id.submit_button);
+        buttonSubmit.setVisibility(View.INVISIBLE);
 
         questionList = (ArrayList<Question>) getIntent().getSerializableExtra("QuestionList");
 
+        //TODO: Remove the below call. It is for testing only
+
+        populateQuestions();
+
+
+
         userAnswerList = new ArrayList<String>(questionList.size());
+
         questionTextDisplay = (TextView) findViewById(R.id.questionText);
 
         buttonA = (Button) findViewById(R.id.buttonOptionA);
@@ -64,8 +70,22 @@ public class QuestionDisplayActivity extends AppCompatActivity {
 
         addListenerOnButtons();
 
-        //TODO: Change ON color of toggle button
+        //TODO: Change ON color of toggle button to RED
 
+        displayQuestion();
+
+
+
+
+    }
+//TODO: Remove this method
+    private void populateQuestions() {
+        questionList = new ArrayList<Question>(5);
+        questionList.add(0, new Question("MCQ","1+1=?",2,"1","2","3","4","a","active"));
+        questionList.add(1, new Question("MCQ","2+4=?",4, "1", "2", "6", "4", "c", "active"));
+        questionList.add(2, new Question("MCQ","What is the price of Hilti Hammer?",5,"$100","$200","$300","$400","a","active"));
+        questionList.add(3, new Question("MCQ","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=?",2,"1","2","3","4","a","active"));
+        questionList.add(4, new Question("MCQ","4-1=?",2,"1","2","3","4","c","active"));
 
 
     }
@@ -87,9 +107,8 @@ public class QuestionDisplayActivity extends AppCompatActivity {
                         }
                         else if(checkedID == R.id.buttonOptionC){
                             userAnswerList.add(currentQuestionIndex,"c");
-                        }
-                        else if(checkedID == R.id.buttonOptionD){
-                            userAnswerList.add(currentQuestionIndex,"d");
+                        } else if(checkedID == R.id.buttonOptionD){
+                            userAnswerList.add(currentQuestionIndex, "d");
                         }
 
                     }
@@ -101,13 +120,72 @@ public class QuestionDisplayActivity extends AppCompatActivity {
             }
         };
 
-        ((RadioGroup) findViewById(R.id.toggleGroup)).setOnCheckedChangeListener(ToggleListener);
+        group = (RadioGroup) findViewById(R.id.toggleGroup);
+        group.setOnCheckedChangeListener(ToggleListener);
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_next_question);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                for (int j = 0; j < group.getChildCount(); j++) {
+                    final ToggleButton button = (ToggleButton) group.getChildAt(j);
+                    button.setChecked(false);
+                }
+
+
+                if (currentQuestionIndex == questionList.size() - 2) {
+
+                    currentQuestionIndex++;
+                    buttonSubmit.setVisibility(View.VISIBLE);
+                    buttonNext.setVisibility(View.INVISIBLE);
+
+                    displayQuestion();
+                } else {
+                    currentQuestionIndex++;
+                    displayQuestion();
+                }
+
+            }
+        });
+
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                submitQuiz();
+
+            }
+        });
+
     }
 
 
     public void onToggle(View view) {
         ((RadioGroup)view.getParent()).check(view.getId());
         // option specific code
+        displayQuestion();
     }
+
+    public void displayQuestion(){
+        Question q = questionList.get(currentQuestionIndex);
+        questionTextDisplay.setText(q.getText());
+        buttonA.setText(q.getOptionA());
+        buttonB.setText(q.getOptionB());
+        buttonC.setText(q.getOptionC());
+        buttonD.setText(q.getOptionD());
+    }
+
+    public void submitQuiz(){
+
+        Toast toast = Toast.makeText(this,"Answers submitted.",Toast.LENGTH_SHORT);
+        toast.show();
+
+        //TODO: Add code to submit the data to results screen.
+
+    }
+
+
 
 }

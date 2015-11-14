@@ -12,11 +12,11 @@ public class Question {
     private String type;
     private String text;
     private int difficulty;
-    private byte[] optionA;
-    private byte[] optionB;
-    private byte[] optionC;
-    private byte[] optionD;
-    private byte[] correctAns;
+    private String optionA;
+    private String optionB;
+    private String optionC;
+    private String optionD;
+    private String correctAns;
     private String status;
 
 
@@ -52,43 +52,43 @@ public class Question {
         this.difficulty = difficulty;
     }
 
-    public byte[] getOptionA() {
+    public String getOptionA() {
         return optionA;
     }
 
-    public void setOptionA(byte[] optionA) {
+    public void setOptionA(String optionA) {
         this.optionA = optionA;
     }
 
-    public byte[] getOptionB() {
+    public String getOptionB() {
         return optionB;
     }
 
-    public void setOptionB(byte[] optionB) {
+    public void setOptionB(String optionB) {
         this.optionB = optionB;
     }
 
-    public byte[] getOptionC() {
+    public String getOptionC() {
         return optionC;
     }
 
-    public void setOptionC(byte[] optionC) {
+    public void setOptionC(String optionC) {
         this.optionC = optionC;
     }
 
-    public byte[] getOptionD() {
+    public String getOptionD() {
         return optionD;
     }
 
-    public void setOptionD(byte[] optionD) {
+    public void setOptionD(String optionD) {
         this.optionD = optionD;
     }
 
-    public byte[] getCorrectAns() {
+    public String getCorrectAns() {
         return correctAns;
     }
 
-    public void setCorrectAns(byte[] correctAns) {
+    public void setCorrectAns(String correctAns) {
         this.correctAns = correctAns;
     }
 
@@ -101,8 +101,8 @@ public class Question {
     }
 
 
-    public Question(String type, String text, int difficulty, byte[] optionA, byte[] optionB, byte[] optionC,
-                    byte[] optionD, byte[] correctAns, String status) {
+    public Question(String type, String text, int difficulty, String optionA, String optionB, String optionC,
+                    String optionD, String correctAns, String status) {
 
         this.type = type;
         this.text = text;
@@ -117,13 +117,11 @@ public class Question {
 
 
     public Question(int qid) {
-        super();
         this.qid = qid;
     }
 
-    public Question(int qid, String type, String text, int difficulty, byte[] optionA, byte[] optionB, byte[] optionC,
-                    byte[] optionD, byte[] correctAns, String status) {
-        super();
+    public Question(int qid, String type, String text, int difficulty, String optionA, String optionB, String optionC,
+                    String optionD, String correctAns, String status) {
         this.qid = qid;
         this.type = type;
         this.text = text;

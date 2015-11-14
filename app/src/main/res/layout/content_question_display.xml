@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:minHeight="200dp"
+                android:minHeight="150dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
                 android:id="@+id/questionText"
@@ -49,8 +49,6 @@
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
-                    android:textOn="A"
-                    android:textOff="A"
                     android:textColorHighlight="@color/primary"
                     android:onClick="onToggle"/>
 
@@ -59,8 +57,6 @@
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
-                    android:textOn="B"
-                    android:textOff="B"
                     android:textColorHighlight="@color/primary"
                     android:onClick="onToggle"/>
                 <ToggleButton android:id="@+id/buttonOptionC"
@@ -68,8 +64,6 @@
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
-                    android:textOn="C"
-                    android:textOff="C"
                     android:textColorHighlight="@color/primary"
                     android:onClick="onToggle"/>
 
@@ -78,11 +72,24 @@
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
-                    android:textOn="B"
-                    android:textOff="B"
                     android:textColorHighlight="@color/primary"
                     android:onClick="onToggle"/>
             </RadioGroup>
+
+
+            <android.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Submit Quiz"
+                android:onClick="submitQuiz"/>
+
+
 
 
 

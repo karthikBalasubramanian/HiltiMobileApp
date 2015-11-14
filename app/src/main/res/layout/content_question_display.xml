@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_question_display"
+    android:orientation="vertical"
+    tools:context="quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity">
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView2"
+        android:layout_gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="200dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/questionText"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+            <android.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <RadioGroup android:id="@+id/toggleGroup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <ToggleButton android:id="@+id/buttonOptionA"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textOn="A"
+                    android:textOff="A"
+                    android:textColorHighlight="@color/primary"
+                    android:onClick="onToggle"/>
+
+                <ToggleButton android:id="@+id/buttonOptionB"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textOn="B"
+                    android:textOff="B"
+                    android:textColorHighlight="@color/primary"
+                    android:onClick="onToggle"/>
+                <ToggleButton android:id="@+id/buttonOptionC"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textOn="C"
+                    android:textOff="C"
+                    android:textColorHighlight="@color/primary"
+                    android:onClick="onToggle"/>
+
+                <ToggleButton android:id="@+id/buttonOptionD"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textOn="B"
+                    android:textOff="B"
+                    android:textColorHighlight="@color/primary"
+                    android:onClick="onToggle"/>
+            </RadioGroup>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

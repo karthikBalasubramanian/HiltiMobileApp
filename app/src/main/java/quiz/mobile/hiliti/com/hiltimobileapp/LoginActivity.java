@@ -1,5 +1,15 @@
 package quiz.mobile.hiliti.com.hiltimobileapp;
 
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -40,6 +50,9 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+import java.util.HashMap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,12 +87,20 @@ public class LoginActivity extends Activity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCanceledOnTouchOutside(false);
         sessionManager = new SessionManager(getApplicationContext());
+
+       /* if (sessionManager.isLoggedIn()) {
+            quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Already session logged. So no more log into");
+
         if (sessionManager.isLoggedIn()) {
+
             // User is already logged in. Take him to main activity
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        }
+
+        }*/
+
+
         // Login button Click Event
         loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -124,6 +145,9 @@ public class LoginActivity extends Activity {
                         // user successfully logged in
                         // Create login session
                         sessionManager.setLogin(true);
+
+                        //sessionManager.setUserCred(jObj.getString("firstName"),jObj.getString("password"),jObj.getString("displayPic"));
+
                         userProfile.setEmpId(jObj.getInt("empid"));
                         userProfile.setPassword(jObj.getString("password"));
                         userProfile.setDisplayPic(jObj.getString("displayPic"));
@@ -143,9 +167,11 @@ public class LoginActivity extends Activity {
                     } catch (JSONException e) {
                         // JSON error
                         e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(getApplicationContext(),"Invalid credentials", Toast.LENGTH_LONG).show();
                     }
-                } else {
+                }
+                else {
                     // Error in login. Get the error message
 
                     Toast.makeText(getApplicationContext(),

@@ -10,10 +10,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import android.view.LayoutInflater;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+
+import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,9 +29,9 @@ import quiz.mobile.hiliti.com.hiltimobileapp.utility.CircleTransform;
 
 public class MainActivity extends AppCompatActivity {
 
+    ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
     private View content;
-    ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,27 @@ public class MainActivity extends AppCompatActivity {
         initToolbar();
         setupDrawerLayout();
         content = findViewById(R.id.content);
+
+        //
+
+        //change to network URL
+        String userEmail = getIntent().getStringExtra("userEmail");
+        String userName = getIntent().getStringExtra("userName");
+        Log.m(getIntent().getStringExtra("displayPic"));
+        Log.m(getIntent().getStringExtra("userName"));
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View navHeader = LayoutInflater.from(this).inflate(R.layout.drawer_header, null);
+        TextView userView = ((TextView) navHeader.findViewById(R.id.userNameMain));
+        userView.setText(userName);
+        TextView emailView = ((TextView) navHeader.findViewById(R.id.emailMain));
+        emailView.setText(userEmail);
+        ImageView imageView = ((ImageView) navHeader.findViewById(R.id.avatar));
+        imageView.setImageResource(R.drawable.profile_pic);
+        navigationView.addHeaderView(navHeader);
+        Log.m(navigationView.getMenu().getItem(0).getTitle().toString());
+
+
+
         final ImageView avatar = (ImageView) findViewById(R.id.avatar);
         //change to network URL
         Log.m("user email is "+getIntent().getStringExtra("userEmail"));

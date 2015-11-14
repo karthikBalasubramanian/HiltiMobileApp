@@ -61,17 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        final ImageView avatar = (ImageView) findViewById(R.id.avatar);
-        //change to network URL
-        Log.m("user email is "+getIntent().getStringExtra("userEmail"));
-        //String userEmail = getIntent().getStringExtra("userEmail");
-        Log.m("username is "+getIntent().getStringExtra("userName"));
-        //String userName = getIntent().getStringExtra("userName");
-        //TextView emailTextView = (TextView) findViewById(R.id.emailMain);
-        //TextView userNameTextView = (TextView) findViewById(R.id.userNameMain);
-        //emailTextView.setText(userEmail);
-        //userNameTextView.setText(userName);
-        //Picasso.with(this).load(R.drawable.profile_pic).transform(new CircleTransform()).into(avatar);
+
     }
 
     @Override

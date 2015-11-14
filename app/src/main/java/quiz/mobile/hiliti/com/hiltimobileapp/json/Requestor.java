@@ -17,14 +17,14 @@ import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
  */
 public class Requestor {
     public static JSONArray requestTrainingJSON(RequestQueue requestQueue, String url, String trainingTag) {
-        JSONArray jsonArray = null;
+        JSONArray jsonArray = new JSONArray();
         RequestFuture<JSONArray> requestFuture = RequestFuture.newFuture();
 
         JsonArrayRequest request = new JsonArrayRequest(url, requestFuture, requestFuture);
         request.setTag(trainingTag);
         requestQueue.add(request);
         try {
-            jsonArray = requestFuture.get(3000, TimeUnit.MILLISECONDS);
+            jsonArray = requestFuture.get(10000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             Log.m(e + "");
         } catch (ExecutionException e) {

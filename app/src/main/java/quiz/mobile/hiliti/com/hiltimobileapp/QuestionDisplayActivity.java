@@ -15,11 +15,13 @@ import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
+import quiz.mobile.hiliti.com.hiltimobileapp.callbacks.QuestionsCallBackListener;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
+import quiz.mobile.hiliti.com.hiltimobileapp.task.QuestionAsyncTask;
 
-public class QuestionDisplayActivity extends AppCompatActivity {
+public class QuestionDisplayActivity extends AppCompatActivity implements QuestionsCallBackListener  {
 
-    ArrayList<Question> questionList;
+    ArrayList<Question> questionList = new ArrayList<Question>();;
     TextView questionTextDisplay;
 
     RadioGroup group;
@@ -43,21 +45,24 @@ public class QuestionDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question_display);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+//        questionList = new ArrayList<Question>();
 
 
 
         buttonSubmit =(Button)findViewById(R.id.submit_button);
         buttonSubmit.setVisibility(View.INVISIBLE);
 
-        questionList = (ArrayList<Question>) getIntent().getSerializableExtra("QuestionList");
+//        questionList = (ArrayList<Question>) getIntent().getSerializableExtra("QuestionList");
 
         //TODO: Remove the below call. It is for testing only
 
-        populateQuestions();
+//        populateQuestions();
+
+        if (questionList.isEmpty()) new QuestionAsyncTask(this).execute();
 
 
 
-        userAnswerList = new ArrayList<String>(questionList.size());
+
 
         questionTextDisplay = (TextView) findViewById(R.id.questionText);
 
@@ -72,7 +77,7 @@ public class QuestionDisplayActivity extends AppCompatActivity {
 
         //TODO: Change ON color of toggle button to RED
 
-        displayQuestion();
+
 
 
 
@@ -128,6 +133,7 @@ public class QuestionDisplayActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Next button clicked.");
 
                 for (int j = 0; j < group.getChildCount(); j++) {
                     final ToggleButton button = (ToggleButton) group.getChildAt(j);
@@ -169,6 +175,7 @@ public class QuestionDisplayActivity extends AppCompatActivity {
     }
 
     public void displayQuestion(){
+        quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("CurrentIndex: " + currentQuestionIndex);
         Question q = questionList.get(currentQuestionIndex);
         questionTextDisplay.setText(q.getText());
         buttonA.setText(q.getOptionA());
@@ -179,6 +186,8 @@ public class QuestionDisplayActivity extends AppCompatActivity {
 
     public void submitQuiz(){
 
+        //TODO: Check if all questions have been answered.
+
         Toast toast = Toast.makeText(this,"Answers submitted.",Toast.LENGTH_SHORT);
         toast.show();
 
@@ -187,5 +196,12 @@ public class QuestionDisplayActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void getQuestionsList(ArrayList<Question> questionsPojos) {
+        this.questionList = questionsPojos;
+        userAnswerList = new ArrayList<String>(questionList.size());
 
+
+        displayQuestion();
+    }
 }

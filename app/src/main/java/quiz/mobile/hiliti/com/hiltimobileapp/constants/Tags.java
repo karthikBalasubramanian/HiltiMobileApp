@@ -1,5 +1,6 @@
 package quiz.mobile.hiliti.com.hiltimobileapp.constants;
 
+import quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity;
 import quiz.mobile.hiliti.com.hiltimobileapp.TrainingActivity;
 
 /**
@@ -14,4 +15,5 @@ public class Tags {
     public static final String KEY_IS_LOGGEDIN = "isLoggedIn";
 
     public static String TRAINING_TAG= TrainingActivity.class.getSimpleName();
+    public static String QUESTION_TAG= QuestionDisplayActivity.class.getSimpleName();
 }

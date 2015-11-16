@@ -120,6 +120,10 @@ public class Question {
         this.qid = qid;
     }
 
+    public Question(){
+
+    }
+
     public Question(int qid, String type, String text, int difficulty, String optionA, String optionB, String optionC,
                     String optionD, String correctAns, String status) {
         this.qid = qid;

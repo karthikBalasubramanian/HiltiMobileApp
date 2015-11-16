@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.json.Parser;
 import quiz.mobile.hiliti.com.hiltimobileapp.json.Requestor;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.TrainingPojo;
 
 /**
@@ -18,5 +19,11 @@ public class JsonUtils {
         JSONArray jsonArray = Requestor.requestTrainingJSON(requestQueue,UrlEndpoints.URL_TRAINING,Tags.TRAINING_TAG);
         ArrayList<TrainingPojo> trainingPojos = Parser.getTrainingMaterials(jsonArray);
         return trainingPojos;
+    }
+
+    public static ArrayList<Question> getQuestions(RequestQueue requestQueue){
+        JSONArray jsonArray = Requestor.requestTrainingJSON(requestQueue,UrlEndpoints.URL_QUESTIONS,Tags.QUESTION_TAG);
+        ArrayList<Question> questionPojos = Parser.getQuestions(jsonArray);
+        return questionPojos;
     }
 }

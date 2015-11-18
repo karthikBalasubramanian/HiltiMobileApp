@@ -1,6 +1,7 @@
 package quiz.mobile.hiliti.com.hiltimobileapp.constants;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity;
+import quiz.mobile.hiliti.com.hiltimobileapp.TakeQuizOptions;
 import quiz.mobile.hiliti.com.hiltimobileapp.TrainingActivity;
 
 /**
@@ -16,4 +17,5 @@ public class Tags {
 
     public static String TRAINING_TAG= TrainingActivity.class.getSimpleName();
     public static String QUESTION_TAG= QuestionDisplayActivity.class.getSimpleName();
+    public static String TOPIC_TAG= TakeQuizOptions.class.getSimpleName();
 }

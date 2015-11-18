@@ -13,7 +13,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class TakeQuizOptions extends AppCompatActivity {
+import quiz.mobile.hiliti.com.hiltimobileapp.callbacks.TopicsCallBackListener;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Topic;
+import quiz.mobile.hiliti.com.hiltimobileapp.task.TopicAsyncTask;
+
+public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBackListener {
 
     Spinner spinnerNumberOfQues,  spinnerDifficultyLevel;
     ArrayAdapter<CharSequence> adapterSpinnerNumberOfQues,  adapterSpinnerDifficultyLevel;
@@ -21,7 +25,7 @@ public class TakeQuizOptions extends AppCompatActivity {
     Button btnTakeQuizOptions;
 
     protected Button selectTopicsButton;
-    protected CharSequence[] topics = { "Hammer", "Chain saw", "Drill", "Construct" };
+    protected CharSequence[] topics;
     protected ArrayList<CharSequence> selectedTopics = new ArrayList<CharSequence>();
 
 
@@ -29,6 +33,9 @@ public class TakeQuizOptions extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_quiz_options);
+
+        if (topics == null) new TopicAsyncTask(this).execute();
+
 
         adapterSpinnerNumberOfQues = ArrayAdapter.createFromResource(this, R.array.spinnerNumberOfQues,android.R.layout.simple_spinner_item);
         adapterSpinnerNumberOfQues.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -126,4 +133,12 @@ public class TakeQuizOptions extends AppCompatActivity {
         selectTopicsButton.setText(stringBuilder.toString());
     }
 
+    @Override
+    public void getTopicList(ArrayList<Topic> topicPojos) {
+        this.topics = new CharSequence[topicPojos.size()];
+
+        for(int i=0; i<topicPojos.size(); i++) {
+            this.topics[i]= topicPojos.get(i).getTopicName();                        }
+
+    }
 }

@@ -50,7 +50,7 @@
             android:label="@string/title_activity_question_display" />
         <activity
             android:name=".TakeQuizOptions"
-            android:label="@string/title_activity_take_quiz_options" >
+            android:label="@string/take_quiz" >
         </activity>
     </application>
 

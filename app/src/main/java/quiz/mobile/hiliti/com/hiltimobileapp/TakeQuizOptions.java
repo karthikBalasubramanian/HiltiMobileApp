@@ -1,9 +1,12 @@
 package quiz.mobile.hiliti.com.hiltimobileapp;
 
 import android.content.DialogInterface;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,7 +52,7 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
         btnTakeQuizOptions = (Button) findViewById(R.id.button_takeQuizOptions);
 
         selectTopicsButton = (Button) findViewById(R.id.select_topics);
-
+        initToolbar();
         selectTopicsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +94,10 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (selectedTopics.isEmpty())
+                            Toast.makeText(TakeQuizOptions.this,"Please select Topics" , Toast.LENGTH_LONG).show();
+
+                        else
                         Toast.makeText(TakeQuizOptions.this, editNumberOfQues + "  " + selectedTopics.toString() + "  " + editDifficultyLevel, Toast.LENGTH_LONG).show();
                     }
                 }
@@ -139,6 +146,26 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
 
         for(int i=0; i<topicPojos.size(); i++) {
             this.topics[i]= topicPojos.get(i).getTopicName();                        }
-
     }
+
+    private void initToolbar() {
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.takeQuizToolbar);
+        setSupportActionBar(toolbar);
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

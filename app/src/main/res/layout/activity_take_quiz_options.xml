@@ -14,100 +14,102 @@
         android:orientation="vertical"
         android:layout_marginTop="80dip"
         android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginBottom="20dip"
         >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="64dp"
-            android:layout_weight="0.25"
-            android:text="Number of Questions"
-            android:id="@+id/textView_"
-            android:textColor="#ff0000"
-            />
+            android:orientation="horizontal" >
 
-        <Spinner
-            android:id="@+id/spinner_numberOfQues"
-            android:layout_width="0dp"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="0.25"
+                android:text="Number of Questions"
+                android:id="@+id/textView_"
+                android:textColor="#ff0000"
+                />
+
+            <Spinner
+                android:id="@+id/spinner_numberOfQues"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="0.75"
+                android:hint="Questions"
+                android:ems="10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="64dp"
-            android:layout_weight="0.75"
-            android:hint="Questions"
-            android:ems="10" />
-    </LinearLayout>
+            android:orientation="horizontal" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:orientation="horizontal" >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="0.25"
+                android:text="Topics"
+                android:id="@+id/textView_topics"
+                android:textColor="#ff0000"
+                />
 
-        <TextView
-            android:layout_width="0dp"
+            <Button
+
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="0.75"
+
+                android:hint="Select Topics"
+                android:id="@+id/select_topics"
+                android:padding="5dip"
+                android:background="#0000"
+                android:gravity="center_vertical|left" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="64dp"
-            android:layout_weight="0.25"
-            android:text="Topics"
-            android:id="@+id/textView_topics"
-            android:textColor="#ff0000"
-            />
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="0.25"
+                android:text="Difficulty Level"
+                android:id="@+id/textView_difficultyLevel"
+                android:textColor="#ff0000"
+
+                />
+
+            <Spinner
+                android:id="@+id/spinner_difficultyLevel"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="0.75"
+                android:ems="10" />
+
+        </LinearLayout>
 
         <Button
-
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_weight="0.75"
-
-            android:hint="Select Topics"
-            android:id="@+id/select_topics"
-            android:padding="5dip"
-            android:background="#0000"
-            android:gravity="center_vertical|left" />
-
-
+            android:id="@+id/button_takeQuizOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:text="Take Quiz"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dip"
+            android:background="#ff0000"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:orientation="horizontal" >
+    <include
+        android:id="@+id/takeQuizToolbar"
+        layout="@layout/activity_toolbar" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_weight="0.25"
-            android:text="Difficulty Level"
-            android:id="@+id/textView_difficultyLevel"
-            android:textColor="#ff0000"
-
-            />
-
-        <Spinner
-            android:id="@+id/spinner_difficultyLevel"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_weight="0.75"
-            android:ems="10" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button_takeQuizOptions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="5"
-        android:text="Take Quiz"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dip"
-        android:background="#ff0000"
-        android:textColor="#ffffff"
-        android:textStyle="bold" />
-    </LinearLayout>
-
-        <include
-            android:id="@+id/trainingToolbar"
-            layout="@layout/activity_toolbar" />
-
-    </FrameLayout>
+</FrameLayout>
 

@@ -97,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
                                 menuItem.setChecked(true);
                                 startNewActivity();
 
+                            } else if (menuItem.getTitle().toString().equalsIgnoreCase("Take Quiz")) {
+                                menuItem.setChecked(true);
+                                startNewActivityTakeQuiz();
+
                             } else {
                                 Snackbar.make(content, menuItem.getTitle() + " pressed", Snackbar.LENGTH_LONG).show();
                                 menuItem.setChecked(true);
@@ -112,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void startNewActivity() {
         Intent intent = new Intent(this, TrainingActivity.class);
+        startActivity(intent);
+    }
+
+    private void startNewActivityTakeQuiz() {
+        Intent intent = new Intent(this, TakeQuizOptions.class);
         startActivity(intent);
     }
 }

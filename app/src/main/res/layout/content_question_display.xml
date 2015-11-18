@@ -29,7 +29,6 @@
                 android:layout_height="match_parent"
                 android:minHeight="150dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
                 android:id="@+id/questionText"
                 android:gravity="center"
                 android:layout_gravity="center"/>

@@ -54,9 +54,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
 //        questionList = (ArrayList<Question>) getIntent().getSerializableExtra("QuestionList");
 
-        //TODO: Remove the below call. It is for testing only
 
-//        populateQuestions();
 
         if (questionList.isEmpty()) new QuestionAsyncTask(this).execute();
 
@@ -83,17 +81,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
 
     }
-//TODO: Remove this method
-    private void populateQuestions() {
-        questionList = new ArrayList<Question>(5);
-        questionList.add(0, new Question("MCQ","1+1=?",2,"1","2","3","4","a","active"));
-        questionList.add(1, new Question("MCQ","2+4=?",4, "1", "2", "6", "4", "c", "active"));
-        questionList.add(2, new Question("MCQ","What is the price of Hilti Hammer?",5,"$100","$200","$300","$400","a","active"));
-        questionList.add(3, new Question("MCQ","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=?",2,"1","2","3","4","a","active"));
-        questionList.add(4, new Question("MCQ","4-1=?",2,"1","2","3","4","c","active"));
 
-
-    }
 
     private void addListenerOnButtons() {
          final RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {
@@ -135,6 +123,14 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
             public void onClick(View view) {
                 quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Next button clicked.");
 
+//                if(userAnswerList.get(currentQuestionIndex) == null) {
+//                    Toast toast;
+//                    toast = Toast.makeText(QuestionDisplayActivity.this, "Please select an answer.", Toast.LENGTH_SHORT);
+//                    toast.show();
+//                    return;
+//                }
+
+                //Reset the toggle buttons
                 for (int j = 0; j < group.getChildCount(); j++) {
                     final ToggleButton button = (ToggleButton) group.getChildAt(j);
                     button.setChecked(false);
@@ -171,10 +167,10 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     public void onToggle(View view) {
         ((RadioGroup)view.getParent()).check(view.getId());
         // option specific code
-        displayQuestion();
+//        displayQuestion();
     }
 
-    public void displayQuestion(){
+    public  void displayQuestion(){
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("CurrentIndex: " + currentQuestionIndex);
         Question q = questionList.get(currentQuestionIndex);
         questionTextDisplay.setText(q.getText());
@@ -186,12 +182,22 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
     public void submitQuiz(){
 
-        //TODO: Check if all questions have been answered.
 
-        Toast toast = Toast.makeText(this,"Answers submitted.",Toast.LENGTH_SHORT);
-        toast.show();
+        if(userAnswerList.get(currentQuestionIndex) == null) {
 
-        //TODO: Add code to submit the data to results screen.
+            Toast toast = Toast.makeText(this, "Please select an answer.", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+        else{
+
+//            TODO:Add code for going to next intent here
+
+            Toast toast = Toast.makeText(this, "Answers submitted.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+
 
     }
 

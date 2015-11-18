@@ -69,7 +69,7 @@ public class TrainingActivity extends AppCompatActivity implements RecyclerViewA
     }
 
     @Override
-    public void getTrainingMaterialsList(ArrayList<TrainingPojo> trainingPojos) {
+      public void getTrainingMaterialsList(ArrayList<TrainingPojo> trainingPojos) {
         jsonResponse = trainingPojos;
         recyclerViewAdapter.setViewModels(jsonResponse);
     }

@@ -25,6 +25,7 @@ public class TrainingActivity extends AppCompatActivity implements RecyclerViewA
     private RecyclerViewAdapter recyclerViewAdapter;
     private ArrayList<TrainingPojo> jsonResponse = new ArrayList<TrainingPojo>();
     private ArrayList<ViewModel> viewModels = new ArrayList<ViewModel>();
+
     ViewModel viewModel = null;
     TrainingPojo trainingPojo = null;
 

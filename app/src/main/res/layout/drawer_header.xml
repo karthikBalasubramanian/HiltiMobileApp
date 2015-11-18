@@ -28,28 +28,28 @@
         android:id="@+id/avatar"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_margin="@dimen/spacing_large"
         android:elevation="4dp"
-        tools:src="@drawable/profile"/>
+        android:paddingLeft="@dimen/spacing_large"
+        tools:src="@drawable/profile"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/userNameMain"
+        android:layout_alignStart="@+id/userNameMain" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/emailMain"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:layout_marginStart="@dimen/spacing_large"
         android:id="@+id/userNameMain"
         android:text="abc"
+        android:layout_below="@+id/avatar"
+        android:layout_margin="@dimen/spacing_large"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
     <TextView
         android:id="@+id/emailMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginBottom="@dimen/spacing_large"
         android:text="abc@email.com"
+        android:paddingLeft="@dimen/spacing_large"
+        android:layout_below="@+id/userNameMain"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
 </RelativeLayout>

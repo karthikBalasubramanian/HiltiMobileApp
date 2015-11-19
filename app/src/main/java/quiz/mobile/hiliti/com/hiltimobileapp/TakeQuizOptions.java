@@ -1,6 +1,7 @@
 package quiz.mobile.hiliti.com.hiltimobileapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -97,8 +98,18 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
                         if (selectedTopics.isEmpty())
                             Toast.makeText(TakeQuizOptions.this,"Please select Topics" , Toast.LENGTH_LONG).show();
 
-                        else
-                        Toast.makeText(TakeQuizOptions.this, editNumberOfQues + "  " + selectedTopics.toString() + "  " + editDifficultyLevel, Toast.LENGTH_LONG).show();
+                        else{
+
+                            Intent intent = new Intent(TakeQuizOptions.this, QuestionDisplayActivity.class);
+                            intent.putExtra("Topiclist", topics);
+                            intent.putExtra("Selectedtopics",selectedTopics);
+                            startActivity(intent);
+
+
+//                            Toast.makeText(TakeQuizOptions.this, editNumberOfQues + "  " + selectedTopics.toString() + "  " + editDifficultyLevel, Toast.LENGTH_LONG).show();
+
+
+                        }
                     }
                 }
         );

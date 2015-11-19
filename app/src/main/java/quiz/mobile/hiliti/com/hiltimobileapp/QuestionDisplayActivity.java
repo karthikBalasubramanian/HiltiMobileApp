@@ -1,5 +1,6 @@
 package quiz.mobile.hiliti.com.hiltimobileapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.callbacks.QuestionsCallBackListener;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Topic;
 import quiz.mobile.hiliti.com.hiltimobileapp.task.QuestionAsyncTask;
 
 public class QuestionDisplayActivity extends AppCompatActivity implements QuestionsCallBackListener  {
@@ -54,6 +56,9 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
 //        questionList = (ArrayList<Question>) getIntent().getSerializableExtra("QuestionList");
 
+        Intent intent = getIntent();
+        CharSequence[] topicList = (CharSequence[]) intent.getSerializableExtra("Topiclist");
+        ArrayList<CharSequence> selectedTopics = (ArrayList<CharSequence>) intent.getSerializableExtra("Selectedtopics");
 
 
         if (questionList.isEmpty()) new QuestionAsyncTask(this).execute();

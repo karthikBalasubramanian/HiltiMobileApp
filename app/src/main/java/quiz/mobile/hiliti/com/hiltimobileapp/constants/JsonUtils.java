@@ -22,8 +22,8 @@ public class JsonUtils {
         return trainingPojos;
     }
 
-    public static ArrayList<Question> getQuestions(RequestQueue requestQueue){
-        JSONArray jsonArray = Requestor.requestTrainingJSON(requestQueue,UrlEndpoints.URL_QUESTIONS,Tags.QUESTION_TAG);
+    public static ArrayList<Question> getQuestions(RequestQueue requestQueue, pass pojo){
+        JSONArray jsonArray = Requestor.requestTrainingJSON(requestQueue,UrlEndpoints.URL_QUESTIONS,Tags.QUESTION_TAG, pass pojo);
         ArrayList<Question> questionPojos = Parser.getQuestions(jsonArray);
         return questionPojos;
     }
@@ -33,4 +33,7 @@ public class JsonUtils {
         ArrayList<Topic> topicPojos = Parser.getTopic(jsonArray);
         return topicPojos;
     }
+
+
+
 }

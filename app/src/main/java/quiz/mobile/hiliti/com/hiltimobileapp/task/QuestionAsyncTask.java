@@ -23,17 +23,24 @@ public class QuestionAsyncTask extends AsyncTask<Void,Void,ArrayList<Question>> 
     RequestQueue mRequestQueue;
     QuestionsCallBackListener questionCallBack;
 
-    public QuestionAsyncTask(QuestionsCallBackListener questionCallBack){
+    String selectedNumberOfQues;
+    ArrayList<CharSequence> selectedTopics;
+    ArrayList<CharSequence> selectedDifficultyLevel;
+
+    public QuestionAsyncTask(QuestionsCallBackListener questionCallBack,String selectedNumberOfQues,ArrayList<CharSequence> selectedTopics,ArrayList<CharSequence> selectedDifficultyLevel){
         this.questionCallBack = questionCallBack;
-        volleySingleton = VolleySingleton.getvSingletonInstance();
-        mRequestQueue = volleySingleton.getmRequestQueue();
+        this.volleySingleton = VolleySingleton.getvSingletonInstance();
+        this.mRequestQueue = volleySingleton.getmRequestQueue();
+        this.selectedNumberOfQues = selectedNumberOfQues;
+        this.selectedTopics = selectedTopics;
+        this.selectedDifficultyLevel = selectedDifficultyLevel;
     }
 
 
     @Override
     protected ArrayList<Question> doInBackground(Void... params) {
         Log.m("Question Task triggered");
-        ArrayList<Question> questionsPojos = JsonUtils.getQuestions(mRequestQueue);
+        ArrayList<Question> questionsPojos = JsonUtils.getQuestions(mRequestQueue, pass pojo);
         return questionsPojos;
     }
     @Override

@@ -31,13 +31,12 @@
             android:name=".ToolTrainingActivity"
             android:label="@string/title_activity_tool_training"
             android:parentActivityName=".TrainingActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="quiz.mobile.hiliti.com.hiltimobileapp.TrainingActivity" />
+
+
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,11 +46,24 @@
         </activity>
         <activity
             android:name=".QuestionDisplayActivity"
-            android:label="@string/title_activity_question_display" />
+            android:label="@string/title_activity_question_display"
+            android:parentActivityName=".TakeQuizOptions" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="quiz.mobile.hiliti.com.hiltimobileapp.TakeQuizOptions" />
+            </activity>
+
+
         <activity
             android:name=".TakeQuizOptions"
-            android:label="@string/take_quiz" >
+            android:label="@string/take_quiz"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="quiz.mobile.hiliti.com.hiltimobileapp.MainActivity" />
         </activity>
+
+
     </application>
 
 </manifest>

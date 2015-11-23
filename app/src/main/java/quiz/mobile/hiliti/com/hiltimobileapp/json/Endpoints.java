@@ -12,4 +12,5 @@ public class Endpoints {
     public static String getImageFromServer(String imagePath){
         return UrlEndpoints.GENERIC_URL_IMAGE_SERVER+imagePath;
     }
+
 }

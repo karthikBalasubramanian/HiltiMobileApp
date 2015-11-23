@@ -23,7 +23,11 @@ import quiz.mobile.hiliti.com.hiltimobileapp.task.QuestionAsyncTask;
 
 public class QuestionDisplayActivity extends AppCompatActivity implements QuestionsCallBackListener  {
 
-    ArrayList<Question> questionList = new ArrayList<Question>();;
+    String selectedNumberOfQues;
+    ArrayList<CharSequence> selectedTopics;
+    ArrayList<CharSequence> selectedDifficultyLevel;
+
+    ArrayList<Question> questionList = new ArrayList<Question>();
     TextView questionTextDisplay;
 
     RadioGroup group;
@@ -49,19 +53,17 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         setSupportActionBar(toolbar);
 //        questionList = new ArrayList<Question>();
 
+        this.selectedNumberOfQues = (String) getIntent().getSerializableExtra("NumberOfQuestions");
+        this.selectedTopics = (ArrayList<CharSequence>) getIntent().getSerializableExtra("Selectedtopics");
+        this.selectedDifficultyLevel = (ArrayList<CharSequence>) getIntent().getSerializableExtra("SelectedDifficulty");
 
 
         buttonSubmit =(Button)findViewById(R.id.submit_button);
         buttonSubmit.setVisibility(View.INVISIBLE);
 
-//        questionList = (ArrayList<Question>) getIntent().getSerializableExtra("QuestionList");
-
-        Intent intent = getIntent();
-        CharSequence[] topicList = (CharSequence[]) intent.getSerializableExtra("Topiclist");
-        ArrayList<CharSequence> selectedTopics = (ArrayList<CharSequence>) intent.getSerializableExtra("Selectedtopics");
 
 
-        if (questionList.isEmpty()) new QuestionAsyncTask(this).execute();
+        if (questionList.isEmpty()) new QuestionAsyncTask(this,selectedNumberOfQues, selectedTopics,selectedDifficultyLevel).execute();
 
 
 
@@ -172,7 +174,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     public void onToggle(View view) {
         ((RadioGroup)view.getParent()).check(view.getId());
         // option specific code
-//        displayQuestion();
+        displayQuestion();
     }
 
     public  void displayQuestion(){

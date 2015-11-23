@@ -14,6 +14,7 @@ public class UrlEndpoints {
         public static final String LOGIN_URL=API_SERVER+"/userProfile/findEmpByEmailAndPassword";
         public static final String URL_QUESTIONS=API_SERVER+"/question/viewAllQuestions";
         public static final String URL_TOPICS=API_SERVER+"/topic/viewAllTopics";
+        public static final String DEFAULT_IMAGE_URL ="/Profile/displayPicture/Shawn_Tok_Profile.png";
 
 
 }

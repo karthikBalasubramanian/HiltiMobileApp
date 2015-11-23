@@ -1,5 +1,8 @@
 package quiz.mobile.hiliti.com.hiltimobileapp.json;
 
+import android.app.DownloadManager;
+
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.RequestFuture;

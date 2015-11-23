@@ -47,4 +47,14 @@ public class SessionManager {
     public boolean isLoggedIn(){
         return pref.getBoolean(Tags.KEY_IS_LOGGEDIN, false);
     }
+
+    public void setQuestionRequest(String no_of_questions, String topics, String levels){
+
+        editor.putString(Tags.NO_OF_QUESTION,no_of_questions);
+        editor.putString(Tags.TOPIC_LIST,topics);
+        editor.putString(Tags.DIFFICULTY_LEVELS, levels);
+        editor.commit();
+        Log.d(TAG,"Question request details saved");
+    }
+
 }

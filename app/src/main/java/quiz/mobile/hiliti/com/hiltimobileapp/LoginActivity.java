@@ -149,7 +149,7 @@ public class LoginActivity extends Activity {
                         // Create login session
                         sessionManager.setLogin(true);
                         //set profile details in shared preference
-                        sessionManager.setUserCred(jObj.getString("firstName"),jObj.getString("email"),jObj.getString("displayPic"));
+                        sessionManager.setUserCred(jObj.getString("firstName"), jObj.getString("email"), jObj.getString("displayPic"));
 
                         userProfile.setEmpId(jObj.getInt("empid"));
                         userProfile.setPassword(jObj.getString("password"));
@@ -190,15 +190,15 @@ public class LoginActivity extends Activity {
             }
         }) {
 
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                               params.put("email", email);
-                params.put("password", password);
+                @Override
+                protected Map<String, String> getParams() {
+                    // Posting parameters to login url
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("email", email);
+                    params.put("password", password);
 
-                return params;
-            }
+                    return params;
+                }
 
         };
 

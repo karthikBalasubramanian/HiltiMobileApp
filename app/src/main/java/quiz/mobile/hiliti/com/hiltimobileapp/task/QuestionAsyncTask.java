@@ -23,10 +23,13 @@ public class QuestionAsyncTask extends AsyncTask<Void,Void,ArrayList<Question>> 
     RequestQueue mRequestQueue;
     QuestionsCallBackListener questionCallBack;
 
+
+
     public QuestionAsyncTask(QuestionsCallBackListener questionCallBack){
         this.questionCallBack = questionCallBack;
-        volleySingleton = VolleySingleton.getvSingletonInstance();
-        mRequestQueue = volleySingleton.getmRequestQueue();
+        this.volleySingleton = VolleySingleton.getvSingletonInstance();
+        this.mRequestQueue = volleySingleton.getmRequestQueue();
+
     }
 
 

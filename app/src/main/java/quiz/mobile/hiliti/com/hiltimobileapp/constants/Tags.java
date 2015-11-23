@@ -18,4 +18,7 @@ public class Tags {
     public static String TRAINING_TAG= TrainingActivity.class.getSimpleName();
     public static String QUESTION_TAG= QuestionDisplayActivity.class.getSimpleName();
     public static String TOPIC_TAG= TakeQuizOptions.class.getSimpleName();
+    public static final String NO_OF_QUESTION = "NoOfQuestions";
+    public static final String TOPIC_LIST = "topicName";
+    public static final String DIFFICULTY_LEVELS = "difficulty";
 }

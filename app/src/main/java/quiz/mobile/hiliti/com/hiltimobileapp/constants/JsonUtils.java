@@ -1,5 +1,7 @@
 package quiz.mobile.hiliti.com.hiltimobileapp.constants;
 
+import android.content.Context;
+
 import com.android.volley.RequestQueue;
 
 import org.json.JSONArray;
@@ -23,7 +25,7 @@ public class JsonUtils {
     }
 
     public static ArrayList<Question> getQuestions(RequestQueue requestQueue){
-        JSONArray jsonArray = Requestor.requestTrainingJSON(requestQueue,UrlEndpoints.URL_QUESTIONS,Tags.QUESTION_TAG);
+        JSONArray jsonArray = Requestor.requestQuestionJSON(requestQueue, UrlEndpoints.URL_QUESTIONS, Tags.QUESTION_TAG);
         ArrayList<Question> questionPojos = Parser.getQuestions(jsonArray);
         return questionPojos;
     }
@@ -33,4 +35,7 @@ public class JsonUtils {
         ArrayList<Topic> topicPojos = Parser.getTopic(jsonArray);
         return topicPojos;
     }
+
+
+
 }

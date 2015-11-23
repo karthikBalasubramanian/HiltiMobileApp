@@ -1,10 +1,12 @@
 package quiz.mobile.hiliti.com.hiltimobileapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +19,17 @@ import java.util.ArrayList;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.callbacks.QuestionsCallBackListener;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Topic;
 import quiz.mobile.hiliti.com.hiltimobileapp.task.QuestionAsyncTask;
+import quiz.mobile.hiliti.com.hiltimobileapp.utility.SessionManager;
 
 public class QuestionDisplayActivity extends AppCompatActivity implements QuestionsCallBackListener  {
 
-    ArrayList<Question> questionList = new ArrayList<Question>();;
+    String selectedNumberOfQues;
+    ArrayList<CharSequence> selectedTopics;
+    ArrayList<CharSequence> selectedDifficultyLevel;
+
+    ArrayList<Question> questionList = new ArrayList<Question>();
     TextView questionTextDisplay;
 
     RadioGroup group;
@@ -47,12 +55,16 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         setSupportActionBar(toolbar);
 //        questionList = new ArrayList<Question>();
 
+        this.selectedNumberOfQues = (String) getIntent().getSerializableExtra("NumberOfQuestions");
+        this.selectedTopics = (ArrayList<CharSequence>) getIntent().getSerializableExtra("Selectedtopics");
+        this.selectedDifficultyLevel = (ArrayList<CharSequence>) getIntent().getSerializableExtra("SelectedDifficulty");
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+                sessionManager.setQuestionRequest(this.selectedNumberOfQues, tokenize(charSequenceToString(this.selectedTopics)), tokenize(charSequenceToString(this.selectedDifficultyLevel)));
 
 
         buttonSubmit =(Button)findViewById(R.id.submit_button);
         buttonSubmit.setVisibility(View.INVISIBLE);
-
-//        questionList = (ArrayList<Question>) getIntent().getSerializableExtra("QuestionList");
 
 
 
@@ -167,7 +179,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     public void onToggle(View view) {
         ((RadioGroup)view.getParent()).check(view.getId());
         // option specific code
-//        displayQuestion();
+        displayQuestion();
     }
 
     public  void displayQuestion(){
@@ -205,9 +217,28 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     @Override
     public void getQuestionsList(ArrayList<Question> questionsPojos) {
         this.questionList = questionsPojos;
+        quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("quiz size"+ questionList.size());
         userAnswerList = new ArrayList<String>(questionList.size());
 
 
         displayQuestion();
+    }
+
+    String tokenize(ArrayList<String> list){
+        String tokenString;
+        tokenString = TextUtils.join(",", list.toArray());
+        return tokenString;
+    }
+
+    ArrayList<String> charSequenceToString(ArrayList<CharSequence> list){
+
+        ArrayList<String> result = new ArrayList<String>();
+
+        for(CharSequence i : list){
+            result.add(i.toString());
+        }
+
+        return result;
+
     }
 }

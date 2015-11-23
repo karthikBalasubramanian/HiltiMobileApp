@@ -52,6 +52,15 @@
             android:name=".TakeQuizOptions"
             android:label="@string/take_quiz" >
         </activity>
+        <activity
+            android:name=".CreateQuestionActivity"
+            android:label="@string/title_activity_create_question"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="quiz.mobile.hiliti.com.hiltimobileapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

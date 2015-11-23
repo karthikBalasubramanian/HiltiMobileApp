@@ -24,11 +24,12 @@
     android:background="@drawable/red_material_design"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatar"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:elevation="4dp"
+        android:paddingTop="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/spacing_large"
         tools:src="@drawable/profile"
         android:layout_alignParentTop="true"

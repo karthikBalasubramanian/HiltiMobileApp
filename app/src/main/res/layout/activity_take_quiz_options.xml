@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/takeQuizOptionsView"
     android:orientation="vertical"
+    android:layout_centerHorizontal="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,18 +17,22 @@
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
         android:layout_marginBottom="20dip"
-        >
 
+        >
+        <android.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="64dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_weight="0.25"
-                android:text="Number of Questions"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Questions"
                 android:id="@+id/textView_"
                 android:textColor="#ff0000"
                 />
@@ -37,6 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_weight="0.75"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:hint="Questions"
                 android:ems="10" />
         </LinearLayout>
@@ -50,6 +56,7 @@
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_weight="0.25"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Topics"
                 android:id="@+id/textView_topics"
                 android:textColor="#ff0000"
@@ -59,6 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_weight="0.75"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:hint="Select Topics"
                 android:id="@+id/select_topics"
                 android:padding="5dip"
@@ -75,7 +83,8 @@
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_weight="0.25"
-                android:text="Difficulty Level"
+                android:text="Difficulty"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/textView_difficultyLevel"
                 android:textColor="#ff0000"
 
@@ -87,6 +96,7 @@
                 android:layout_height="64dp"
                 android:layout_weight="0.75"
                 android:background="#0000"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:gravity="center_vertical|left"
                 android:hint="Select Difficulty Level"
                 android:padding="5dip" />

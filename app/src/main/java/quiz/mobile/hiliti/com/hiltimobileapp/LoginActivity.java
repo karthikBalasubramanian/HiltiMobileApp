@@ -39,12 +39,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
@@ -59,6 +61,7 @@ import java.util.List;
 import java.util.Map;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.UrlEndpoints;
+import quiz.mobile.hiliti.com.hiltimobileapp.json.Endpoints;
 import quiz.mobile.hiliti.com.hiltimobileapp.network.VolleySingleton;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.UserProfile;
 import quiz.mobile.hiliti.com.hiltimobileapp.utility.SessionManager;
@@ -145,12 +148,12 @@ public class LoginActivity extends Activity {
                         // user successfully logged in
                         // Create login session
                         sessionManager.setLogin(true);
-
-                        //sessionManager.setUserCred(jObj.getString("firstName"),jObj.getString("password"),jObj.getString("displayPic"));
+                        //set profile details in shared preference
+                        sessionManager.setUserCred(jObj.getString("firstName"),jObj.getString("email"),jObj.getString("displayPic"));
 
                         userProfile.setEmpId(jObj.getInt("empid"));
                         userProfile.setPassword(jObj.getString("password"));
-                        userProfile.setDisplayPic(jObj.getString("displayPic"));
+                        userProfile.setDisplayPic(Endpoints.getImageFromServer(jObj.getString("displayPic")));
                         userProfile.setFirstName(jObj.getString("firstName"));
                         userProfile.setLastName(jObj.getString("lastName"));
                         userProfile.setDepartment(jObj.getString("department"));
@@ -159,9 +162,6 @@ public class LoginActivity extends Activity {
 
                         Intent intent = new Intent(LoginActivity.this,
                                 MainActivity.class);
-                        intent.putExtra("userName", userProfile.getFirstName());
-                        intent.putExtra("displayPic", userProfile.getDisplayPic());
-                        intent.putExtra("userEmail",userProfile.getEmail());
                         startActivity(intent);
                         finish();
                     } catch (JSONException e) {
@@ -215,6 +215,7 @@ public class LoginActivity extends Activity {
         if (progressDialog.isShowing())
             progressDialog.dismiss();
     }
+
 
 
 }

@@ -56,18 +56,14 @@
                 />
 
             <Button
-
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_weight="0.75"
-
                 android:hint="Select Topics"
                 android:id="@+id/select_topics"
                 android:padding="5dip"
                 android:background="#0000"
                 android:gravity="center_vertical|left" />
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -85,13 +81,15 @@
 
                 />
 
-            <Spinner
-                android:id="@+id/spinner_difficultyLevel"
+            <Button
+                android:id="@+id/select_difficultyLevel"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_weight="0.75"
-                android:ems="10" />
-
+                android:background="#0000"
+                android:gravity="center_vertical|left"
+                android:hint="Select Difficulty Level"
+                android:padding="5dip" />
         </LinearLayout>
 
         <Button

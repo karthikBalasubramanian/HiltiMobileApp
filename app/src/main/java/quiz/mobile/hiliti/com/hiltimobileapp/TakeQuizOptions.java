@@ -23,15 +23,18 @@ import quiz.mobile.hiliti.com.hiltimobileapp.task.TopicAsyncTask;
 
 public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBackListener {
 
-    Spinner spinnerNumberOfQues,  spinnerDifficultyLevel;
-    ArrayAdapter<CharSequence> adapterSpinnerNumberOfQues,  adapterSpinnerDifficultyLevel;
-    String editNumberOfQues, editTopics, editDifficultyLevel;
+    Spinner spinnerNumberOfQues;
+    ArrayAdapter<CharSequence> adapterSpinnerNumberOfQues;
+    String selectedNumberOfQues;
     Button btnTakeQuizOptions;
 
     protected Button selectTopicsButton;
     protected CharSequence[] topics;
     protected ArrayList<CharSequence> selectedTopics = new ArrayList<CharSequence>();
 
+    protected Button selectDifficultyLevelButton;
+    protected CharSequence[] difficultyLevel = { "1", "2", "3", "4", "5" };
+    protected ArrayList<CharSequence> selectedDifficultyLevel = new ArrayList<CharSequence>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +43,10 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
 
         if (topics == null) new TopicAsyncTask(this).execute();
 
-
         adapterSpinnerNumberOfQues = ArrayAdapter.createFromResource(this, R.array.spinnerNumberOfQues,android.R.layout.simple_spinner_item);
         adapterSpinnerNumberOfQues.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        adapterSpinnerDifficultyLevel = ArrayAdapter.createFromResource(this, R.array.spinnerDifficultyLevel,android.R.layout.simple_spinner_item);
-        adapterSpinnerDifficultyLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinnerNumberOfQues = (Spinner) findViewById(R.id.spinner_numberOfQues);
-        spinnerDifficultyLevel = (Spinner) findViewById(R.id.spinner_difficultyLevel);
 
         btnTakeQuizOptions = (Button) findViewById(R.id.button_takeQuizOptions);
 
@@ -67,11 +65,25 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
             }
         });
 
+        selectDifficultyLevelButton = (Button) findViewById(R.id.select_difficultyLevel); //
+
+        selectDifficultyLevelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //
+                switch(v.getId()) {
+                    case R.id.select_difficultyLevel:
+                        showSelectDifficultyLevelDialog();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         spinnerNumberOfQues.setAdapter(adapterSpinnerNumberOfQues);
         spinnerNumberOfQues.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                editNumberOfQues = parent.getItemAtPosition(position).toString();
+                selectedNumberOfQues = parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -79,17 +91,6 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
             }
         });
 
-        spinnerDifficultyLevel.setAdapter(adapterSpinnerDifficultyLevel);
-        spinnerDifficultyLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                editDifficultyLevel = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
         btnTakeQuizOptions.setOnClickListener(
                 new View.OnClickListener() {
@@ -97,6 +98,9 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
                     public void onClick(View v) {
                         if (selectedTopics.isEmpty())
                             Toast.makeText(TakeQuizOptions.this,"Please select Topics" , Toast.LENGTH_LONG).show();
+                        else if (selectedDifficultyLevel.isEmpty())
+                            Toast.makeText(TakeQuizOptions.this,"Please select Difficulty Level" , Toast.LENGTH_LONG).show();
+                        
 
                         else{
 
@@ -178,5 +182,38 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
         return super.onOptionsItemSelected(item);
     }
 
+    private void showSelectDifficultyLevelDialog()
+    {
+        boolean[] checkedDifficultyLevel = new boolean[difficultyLevel.length];
+        int count = difficultyLevel.length;
+        for(int i = 0; i < count; i++)
+            checkedDifficultyLevel[i] = selectedDifficultyLevel.contains(difficultyLevel[i]);
+        DialogInterface.OnMultiChoiceClickListener difficultyLevelDialogListener = new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if(isChecked)
+                    selectedDifficultyLevel.add(difficultyLevel[which]);
+                else
+                    selectedDifficultyLevel.remove(difficultyLevel[which]);
+                onChangeSelectedDifficultyLevel();
+            }
+        };
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Difficulty Level");
+        builder.setMultiChoiceItems(difficultyLevel, checkedDifficultyLevel, difficultyLevelDialogListener);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    private void onChangeSelectedDifficultyLevel() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(CharSequence colour : selectedDifficultyLevel)
+            stringBuilder.append(" " + colour + ",");
+        if (stringBuilder.length()>0) {
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            stringBuilder.deleteCharAt(0);
+        }
+        selectDifficultyLevelButton.setText(stringBuilder.toString());
+    }
 }

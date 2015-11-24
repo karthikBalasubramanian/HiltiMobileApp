@@ -37,7 +37,7 @@ public class ResultActivity extends AppCompatActivity implements RecyclerViewAda
         initRecyclerView();
         content = findViewById(R.id.resultview);
         ArrayList<Question> question = (ArrayList<Question>)getIntent().getSerializableExtra("QuestionList");
-        ArrayList<String> answers=(ArrayList<String>)getIntent().getSerializableExtra("AnswerList");
+      //  ArrayList<String> answers=(ArrayList<String>)getIntent().getSerializableExtra("AnswerList");
         recyclerViewAdapter.setViewModels(question);
        // / if (jsonResponse.isEmpty()) new QuestionAsyncTask(this).execute();
     }

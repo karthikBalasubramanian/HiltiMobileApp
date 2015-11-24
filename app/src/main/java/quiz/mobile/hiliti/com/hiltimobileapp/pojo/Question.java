@@ -1,9 +1,11 @@
 package quiz.mobile.hiliti.com.hiltimobileapp.pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by Poorna on 13/11/2015.
  */
-public class Question {
+public class Question implements Serializable {
 
 
 

@@ -28,7 +28,7 @@ import quiz.mobile.hiliti.com.hiltimobileapp.task.TrainingAsyncTask;
 
 
 
-public class ResultActivity extends AppCompatActivity implements RecyclerViewAdapterResult.OnItemClickListener, QuestionsCallBackListener {
+public class ResultActivity extends AppCompatActivity implements RecyclerViewAdapterResult.OnItemClickListener {
 
 
     private View content;
@@ -48,7 +48,10 @@ public class ResultActivity extends AppCompatActivity implements RecyclerViewAda
 
         initRecyclerView();
         content = findViewById(R.id.resultview);
-        if (jsonResponse.isEmpty()) new QuestionAsyncTask(this).execute();
+        ArrayList<Question> question = (ArrayList<Question>)getIntent().getSerializableExtra("QuestionList");
+        ArrayList<String> answers=(ArrayList<String>)getIntent().getSerializableExtra("AnswerList");
+        recyclerViewAdapter.setViewModels(question);
+       // / if (jsonResponse.isEmpty()) new QuestionAsyncTask(this).execute();
     }
 
     private void initRecyclerView() {
@@ -73,11 +76,12 @@ public class ResultActivity extends AppCompatActivity implements RecyclerViewAda
         Toast.makeText(getApplicationContext(),"seected", Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void getQuestionsList(ArrayList<Question> Qpojo) {
-        jsonResponse = Qpojo;
+    //@Override
+   /* public void getItems() {
+        Bundle question=getIntent().getExtras("QuestionList");
+        jsonResponse = getIntent().getExtras("QuestionList");
         recyclerViewAdapter.setViewModels(jsonResponse);
-    }
+    }*/
 
 
 }

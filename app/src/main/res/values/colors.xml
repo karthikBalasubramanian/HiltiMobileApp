@@ -18,4 +18,5 @@
     <color name="divider">#B6B6B6</color>
     <color name="accent_translucent">#6affd91c</color>
     <color name="accent_bright">#bfffd522</color>
+    <color name="common_signin_btn_dark_text_default">@android:color/white</color>
 </resources>

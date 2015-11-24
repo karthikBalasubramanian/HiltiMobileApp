@@ -29,7 +29,6 @@ public class QuestionAsyncTask extends AsyncTask<Void,Void,ArrayList<Question>> 
         this.questionCallBack = questionCallBack;
         this.volleySingleton = VolleySingleton.getvSingletonInstance();
         this.mRequestQueue = volleySingleton.getmRequestQueue();
-
     }
 
 

@@ -12,6 +12,8 @@ import com.android.volley.toolbox.RequestFuture;
 
 import org.json.JSONArray;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -21,6 +23,7 @@ import java.util.concurrent.TimeoutException;
 import quiz.mobile.hiliti.com.hiltimobileapp.HiltiApplication;
 import quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity;
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.Tags;
+import quiz.mobile.hiliti.com.hiltimobileapp.constants.UrlEndpoints;
 import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.QuestionRequest;
 
@@ -47,16 +50,26 @@ public class Requestor {
         return jsonArray;
     }
 
-    public static JSONArray requestQuestionJSON(RequestQueue requestQueue, String url, String trainingTag) {
+    public static JSONArray requestQuestionJSON(RequestQueue requestQueue, String url, String questionTag)  {
+        SharedPreferences preferences = HiltiApplication.getAppContext().getSharedPreferences(Tags.PREF_NAME, Context.MODE_PRIVATE);
+        String noOfQuestions = preferences.getString(Tags.NO_OF_QUESTION, "5");
+        String topicList = preferences.getString(Tags.TOPIC_LIST, "drill");
+        String difficulty = preferences.getString(Tags.DIFFICULTY_LEVELS, "3");
         JSONArray jsonArray = new JSONArray();
+        try {
+            url = url+ UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.QUESTION_PARAMS_TOPIC+URLEncoder.encode(topicList, UrlEndpoints.URL_ENCODER)+UrlEndpoints.URL_CHAR_AMEPERSAND+ UrlEndpoints.QUESTION_PARAMS_DIFFICULTY+URLEncoder.encode(difficulty,UrlEndpoints.URL_ENCODER);
+        } catch (UnsupportedEncodingException e) {
+            Log.m("encoding error");
+            e.printStackTrace();
+        }
+        Log.m("URL is "+url);
         RequestFuture<JSONArray> requestFuture = RequestFuture.newFuture();
         //int method, String url, Listener<JSONArray> listener, ErrorListener errorListener
-        QuestionRequestor jsonArrayRequest = new QuestionRequestor(url,requestFuture,requestFuture);
-        //QuestionRequestor request = new QuestionRequestor(Request.Method.POST,url,null, requestFuture, requestFuture);
-        jsonArrayRequest.setTag(trainingTag);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,requestFuture,requestFuture);
+        jsonArrayRequest.setTag(questionTag);
         requestQueue.add(jsonArrayRequest);
         try {
-            jsonArray = requestFuture.get(10000, TimeUnit.MILLISECONDS);
+            jsonArray = requestFuture.get(3000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             Log.m(e + "");
         } catch (ExecutionException e) {

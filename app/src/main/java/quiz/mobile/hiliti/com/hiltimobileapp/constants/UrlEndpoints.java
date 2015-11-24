@@ -18,6 +18,8 @@ public class UrlEndpoints {
         public static final String QUESTION_PARAMS_TOPIC ="topicName=";
         public static final String QUESTION_PARAMS_DIFFICULTY="difficulty=";
         public static final String URL_ENCODER = "UTF-8";
+        public static final String QUESTION_PARAM_QNO = "qno=";
+
 
 
 }

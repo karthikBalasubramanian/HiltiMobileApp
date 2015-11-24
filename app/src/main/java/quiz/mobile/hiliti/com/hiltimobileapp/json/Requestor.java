@@ -57,7 +57,7 @@ public class Requestor {
         String difficulty = preferences.getString(Tags.DIFFICULTY_LEVELS, "3");
         JSONArray jsonArray = new JSONArray();
         try {
-            url = url+ UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.QUESTION_PARAMS_TOPIC+URLEncoder.encode(topicList, UrlEndpoints.URL_ENCODER)+UrlEndpoints.URL_CHAR_AMEPERSAND+ UrlEndpoints.QUESTION_PARAMS_DIFFICULTY+URLEncoder.encode(difficulty,UrlEndpoints.URL_ENCODER);
+            url = url+ UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.QUESTION_PARAMS_TOPIC+URLEncoder.encode(topicList, UrlEndpoints.URL_ENCODER)+UrlEndpoints.URL_CHAR_AMEPERSAND+ UrlEndpoints.QUESTION_PARAMS_DIFFICULTY+URLEncoder.encode(difficulty,UrlEndpoints.URL_ENCODER)+UrlEndpoints.URL_CHAR_AMEPERSAND+ UrlEndpoints.QUESTION_PARAM_QNO+URLEncoder.encode(noOfQuestions,UrlEndpoints.URL_ENCODER);
         } catch (UnsupportedEncodingException e) {
             Log.m("encoding error");
             e.printStackTrace();

@@ -203,7 +203,11 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         }
         else{
 
-//            TODO:Add code for going to next intent here
+
+            Intent intent = new Intent(QuestionDisplayActivity.this,ResultActivity.class);
+            intent.putExtra("QuestionList",this.questionList);
+            intent.putExtra("AnswerList",userAnswerList);
+            startActivity(intent);
 
             Toast toast = Toast.makeText(this, "Answers submitted.", Toast.LENGTH_SHORT);
             toast.show();

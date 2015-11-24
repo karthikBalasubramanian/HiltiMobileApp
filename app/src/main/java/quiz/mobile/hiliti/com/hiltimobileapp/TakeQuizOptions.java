@@ -105,7 +105,7 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
                         else{
 
                             Intent intent = new Intent(TakeQuizOptions.this, QuestionDisplayActivity.class);
-//                            intent.putExtra("Topiclist", topics);
+//
                             intent.putExtra("Selectedtopics",selectedTopics);
                             intent.putExtra("SelectedDifficulty",selectedDifficultyLevel);
                             intent.putExtra("NumberOfQuestions",selectedNumberOfQues);

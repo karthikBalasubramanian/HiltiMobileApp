@@ -29,6 +29,8 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     ArrayList<CharSequence> selectedTopics;
     ArrayList<CharSequence> selectedDifficultyLevel;
 
+    private final Object lock = new Object();
+
     ArrayList<Question> questionList = new ArrayList<Question>();
     TextView questionTextDisplay;
 
@@ -105,22 +107,22 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
                     if(view.getId() == checkedID){
 
                         if(checkedID == R.id.buttonOptionA){
-                            userAnswerList.add(currentQuestionIndex,"a");
+                            userAnswerList.add(getCurrentQuestionIndex(),"a");
                         }
                         else if(checkedID == R.id.buttonOptionB){
-                            userAnswerList.add(currentQuestionIndex,"b");
+                            userAnswerList.add(getCurrentQuestionIndex(),"b");
                         }
                         else if(checkedID == R.id.buttonOptionC){
-                            userAnswerList.add(currentQuestionIndex,"c");
+                            userAnswerList.add(getCurrentQuestionIndex(),"c");
                         } else if(checkedID == R.id.buttonOptionD){
-                            userAnswerList.add(currentQuestionIndex, "d");
+                            userAnswerList.add(getCurrentQuestionIndex(), "d");
                         }
 
                     }
 
                 }
 
-                Log.d("QuestionDisplay", "Selected"+userAnswerList.get(currentQuestionIndex));
+                Log.d("QuestionDisplay", "Selected"+userAnswerList.get(getCurrentQuestionIndex()));
 
             }
         };
@@ -149,15 +151,15 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
                 }
 
 
-                if (currentQuestionIndex == questionList.size() - 2) {
+                if (getCurrentQuestionIndex() == questionList.size() - 2) {
 
-                    currentQuestionIndex++;
+                    setCurrentQuestionIndex(getCurrentQuestionIndex()+1);
                     buttonSubmit.setVisibility(View.VISIBLE);
                     buttonNext.setVisibility(View.INVISIBLE);
 
                     displayQuestion();
                 } else {
-                    currentQuestionIndex++;
+                    setCurrentQuestionIndex(getCurrentQuestionIndex()+1);
                     displayQuestion();
                 }
 
@@ -183,8 +185,8 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     }
 
     public  void displayQuestion(){
-        quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("CurrentIndex: " + currentQuestionIndex);
-        Question q = questionList.get(currentQuestionIndex);
+        quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("CurrentIndex: " + getCurrentQuestionIndex());
+        Question q = questionList.get(getCurrentQuestionIndex());
         questionTextDisplay.setText(q.getText());
         buttonA.setText(q.getOptionA());
         buttonB.setText(q.getOptionB());
@@ -195,7 +197,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     public void submitQuiz(){
 
 
-        if(userAnswerList.get(currentQuestionIndex) == null) {
+        if(userAnswerList.get(getCurrentQuestionIndex()) == null) {
 
             Toast toast = Toast.makeText(this, "Please select an answer.", Toast.LENGTH_SHORT);
             toast.show();
@@ -204,10 +206,10 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         else{
 
 
-//            Intent intent = new Intent(QuestionDisplayActivity.this,ResultActivity.class);
-//            intent.putExtra("QuestionList",this.questionList);
-//            intent.putExtra("AnswerList",userAnswerList);
-//            startActivity(intent);
+            Intent intent = new Intent(QuestionDisplayActivity.this,ResultActivity.class);
+            intent.putExtra("QuestionList",this.questionList);
+            intent.putExtra("AnswerList",userAnswerList);
+            startActivity(intent);
 
             Toast toast = Toast.makeText(this, "Answers submitted.", Toast.LENGTH_SHORT);
             toast.show();
@@ -244,5 +246,19 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
         return result;
 
+    }
+
+    public int getCurrentQuestionIndex() {
+
+        synchronized (lock){
+            return currentQuestionIndex;
+        }
+
+    }
+
+    public void setCurrentQuestionIndex(int currentQuestionIndex) {
+        synchronized (lock) {
+            this.currentQuestionIndex = currentQuestionIndex;
+        }
     }
 }

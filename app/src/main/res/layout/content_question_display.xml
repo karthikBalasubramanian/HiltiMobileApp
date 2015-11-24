@@ -43,36 +43,42 @@
                 android:layout_marginTop="24dp"
                 android:orientation="vertical">
 
-                <ToggleButton android:id="@+id/buttonOptionA"
+                <RadioButton android:id="@+id/buttonOptionA"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
+                    android:background="@drawable/background_border_red"
                     android:textColorHighlight="@color/primary"
-                    android:onClick="onToggle"/>
+                    android:buttonTint="@color/primary" />
 
-                <ToggleButton android:id="@+id/buttonOptionB"
+                <RadioButton android:id="@+id/buttonOptionB"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
+                    android:background="@drawable/background_border_red"
                     android:textColorHighlight="@color/primary"
-                    android:onClick="onToggle"/>
-                <ToggleButton android:id="@+id/buttonOptionC"
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textColorHighlight="@color/primary"
-                    android:onClick="onToggle"/>
+                    android:buttonTint="@color/primary"
+                    />
 
-                <ToggleButton android:id="@+id/buttonOptionD"
+                <RadioButton android:id="@+id/buttonOptionC"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
+                    android:background="@drawable/background_border_red"
                     android:textColorHighlight="@color/primary"
-                    android:onClick="onToggle"/>
+                    android:buttonTint="@color/primary"/>
+
+                <RadioButton android:id="@+id/buttonOptionD"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:background="@drawable/background_border_red"
+                    android:textColorHighlight="@color/primary"
+                    android:buttonTint="@color/primary"/>
             </RadioGroup>
 
 

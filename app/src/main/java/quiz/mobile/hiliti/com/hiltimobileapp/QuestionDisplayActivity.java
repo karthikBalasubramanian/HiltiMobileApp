@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,10 +36,10 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     TextView questionTextDisplay;
 
     RadioGroup group;
-    Button buttonA;
-    Button buttonB;
-    Button buttonC;
-    Button buttonD;
+    RadioButton buttonA;
+    RadioButton buttonB;
+    RadioButton buttonC;
+    RadioButton buttonD;
 
     FloatingActionButton buttonNext;
 
@@ -78,16 +79,15 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
         questionTextDisplay = (TextView) findViewById(R.id.questionText);
 
-        buttonA = (Button) findViewById(R.id.buttonOptionA);
-        buttonB = (Button) findViewById(R.id.buttonOptionB);
-        buttonC = (Button) findViewById(R.id.buttonOptionC);
-        buttonD = (Button) findViewById(R.id.buttonOptionD);
+        buttonA = (RadioButton) findViewById(R.id.buttonOptionA);
+        buttonB = (RadioButton) findViewById(R.id.buttonOptionB);
+        buttonC = (RadioButton) findViewById(R.id.buttonOptionC);
+        buttonD = (RadioButton) findViewById(R.id.buttonOptionD);
 
         buttonNext = (FloatingActionButton) findViewById(R.id.fab_next_question);
 
         addListenerOnButtons();
 
-        //TODO: Change ON color of toggle button to RED
 
 
 
@@ -102,7 +102,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
             @Override
             public void onCheckedChanged(final RadioGroup radioGroup, final int checkedID) {
                 for (int j = 0; j < radioGroup.getChildCount(); j++) {
-                    final ToggleButton view = (ToggleButton) radioGroup.getChildAt(j);
+                    final RadioButton view = (RadioButton) radioGroup.getChildAt(j);
                     view.setChecked(view.getId() == checkedID);
                     if(view.getId() == checkedID){
 
@@ -113,7 +113,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
                             userAnswerList.add(getCurrentQuestionIndex(),"b");
                         }
                         else if(checkedID == R.id.buttonOptionC){
-                            userAnswerList.add(getCurrentQuestionIndex(),"c");
+                            userAnswerList.add(getCurrentQuestionIndex(), "c");
                         } else if(checkedID == R.id.buttonOptionD){
                             userAnswerList.add(getCurrentQuestionIndex(), "d");
                         }
@@ -144,22 +144,31 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 //                    return;
 //                }
 
-                //Reset the toggle buttons
+//                Reset the toggle buttons
+                RadioButton button;
                 for (int j = 0; j < group.getChildCount(); j++) {
-                    final ToggleButton button = (ToggleButton) group.getChildAt(j);
+                    button = (RadioButton) group.getChildAt(j);
                     button.setChecked(false);
                 }
 
 
+                quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Button group reset.");
+
+
                 if (getCurrentQuestionIndex() == questionList.size() - 2) {
 
-                    setCurrentQuestionIndex(getCurrentQuestionIndex()+1);
+                    quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("one but last question.");
+
+                    setCurrentQuestionIndex(getCurrentQuestionIndex() + 1);
+                    quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Current question incremented.");
                     buttonSubmit.setVisibility(View.VISIBLE);
                     buttonNext.setVisibility(View.INVISIBLE);
 
                     displayQuestion();
                 } else {
-                    setCurrentQuestionIndex(getCurrentQuestionIndex()+1);
+                    quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("not last question.");
+                    setCurrentQuestionIndex(getCurrentQuestionIndex() + 1);
+                    quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Current question incremented.");
                     displayQuestion();
                 }
 
@@ -169,6 +178,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Submit button clicked");
 
                 submitQuiz();
 
@@ -178,14 +188,20 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     }
 
 
-    public void onToggle(View view) {
-        ((RadioGroup)view.getParent()).check(view.getId());
-        // option specific code
-        displayQuestion();
-    }
+//    public void onToggle(View view) {
+//        ((RadioGroup)view.getParent()).check(view.getId());
+//        // option specific code
+//        displayQuestion();
+//    }
 
     public  void displayQuestion(){
+        quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Display question invoked.");
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("CurrentIndex: " + getCurrentQuestionIndex());
+        RadioButton button;
+        for (int j = 0; j < group.getChildCount(); j++) {
+            button = (RadioButton) group.getChildAt(j);
+            button.setChecked(false);
+        }
         Question q = questionList.get(getCurrentQuestionIndex());
         questionTextDisplay.setText(q.getText());
         buttonA.setText(q.getOptionA());
@@ -195,6 +211,8 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     }
 
     public void submitQuiz(){
+
+        quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Entered submit quiz." +"");
 
 
         if(userAnswerList.get(getCurrentQuestionIndex()) == null) {
@@ -206,10 +224,10 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         else{
 
 
-            Intent intent = new Intent(QuestionDisplayActivity.this,ResultActivity.class);
+           /* //Intent intent = new Intent(QuestionDisplayActivity.this,ResultActivity.class);
             intent.putExtra("QuestionList",this.questionList);
             intent.putExtra("AnswerList",userAnswerList);
-            startActivity(intent);
+            startActivity(intent);*/
 
             Toast toast = Toast.makeText(this, "Answers submitted.", Toast.LENGTH_SHORT);
             toast.show();
@@ -225,8 +243,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         this.questionList = questionsPojos;
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("quiz size"+ questionList.size());
         userAnswerList = new ArrayList<String>(questionList.size());
-
-
+        currentQuestionIndex = 0;
         displayQuestion();
     }
 

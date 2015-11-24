@@ -1,10 +1,12 @@
 package quiz.mobile.hiliti.com.hiltimobileapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +19,19 @@ import java.util.ArrayList;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.callbacks.QuestionsCallBackListener;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Topic;
 import quiz.mobile.hiliti.com.hiltimobileapp.task.QuestionAsyncTask;
+import quiz.mobile.hiliti.com.hiltimobileapp.utility.SessionManager;
 
 public class QuestionDisplayActivity extends AppCompatActivity implements QuestionsCallBackListener  {
 
-    ArrayList<Question> questionList = new ArrayList<Question>();;
+    String selectedNumberOfQues;
+    ArrayList<CharSequence> selectedTopics;
+    ArrayList<CharSequence> selectedDifficultyLevel;
+
+    private final Object lock = new Object();
+
+    ArrayList<Question> questionList = new ArrayList<Question>();
     TextView questionTextDisplay;
 
     RadioGroup group;
@@ -47,16 +57,18 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         setSupportActionBar(toolbar);
 //        questionList = new ArrayList<Question>();
 
+        this.selectedNumberOfQues = (String) getIntent().getSerializableExtra("NumberOfQuestions");
+        this.selectedTopics = (ArrayList<CharSequence>) getIntent().getSerializableExtra("Selectedtopics");
+        this.selectedDifficultyLevel = (ArrayList<CharSequence>) getIntent().getSerializableExtra("SelectedDifficulty");
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+                sessionManager.setQuestionRequest(this.selectedNumberOfQues, tokenize(charSequenceToString(this.selectedTopics)), tokenize(charSequenceToString(this.selectedDifficultyLevel)));
 
 
         buttonSubmit =(Button)findViewById(R.id.submit_button);
         buttonSubmit.setVisibility(View.INVISIBLE);
 
-//        questionList = (ArrayList<Question>) getIntent().getSerializableExtra("QuestionList");
 
-        //TODO: Remove the below call. It is for testing only
-
-//        populateQuestions();
 
         if (questionList.isEmpty()) new QuestionAsyncTask(this).execute();
 
@@ -83,17 +95,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
 
     }
-//TODO: Remove this method
-    private void populateQuestions() {
-        questionList = new ArrayList<Question>(5);
-        questionList.add(0, new Question("MCQ","1+1=?",2,"1","2","3","4","a","active"));
-        questionList.add(1, new Question("MCQ","2+4=?",4, "1", "2", "6", "4", "c", "active"));
-        questionList.add(2, new Question("MCQ","What is the price of Hilti Hammer?",5,"$100","$200","$300","$400","a","active"));
-        questionList.add(3, new Question("MCQ","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=?",2,"1","2","3","4","a","active"));
-        questionList.add(4, new Question("MCQ","4-1=?",2,"1","2","3","4","c","active"));
 
-
-    }
 
     private void addListenerOnButtons() {
          final RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {
@@ -105,22 +107,22 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
                     if(view.getId() == checkedID){
 
                         if(checkedID == R.id.buttonOptionA){
-                            userAnswerList.add(currentQuestionIndex,"a");
+                            userAnswerList.add(getCurrentQuestionIndex(),"a");
                         }
                         else if(checkedID == R.id.buttonOptionB){
-                            userAnswerList.add(currentQuestionIndex,"b");
+                            userAnswerList.add(getCurrentQuestionIndex(),"b");
                         }
                         else if(checkedID == R.id.buttonOptionC){
-                            userAnswerList.add(currentQuestionIndex,"c");
+                            userAnswerList.add(getCurrentQuestionIndex(),"c");
                         } else if(checkedID == R.id.buttonOptionD){
-                            userAnswerList.add(currentQuestionIndex, "d");
+                            userAnswerList.add(getCurrentQuestionIndex(), "d");
                         }
 
                     }
 
                 }
 
-                Log.d("QuestionDisplay", "Selected"+userAnswerList.get(currentQuestionIndex));
+                Log.d("QuestionDisplay", "Selected"+userAnswerList.get(getCurrentQuestionIndex()));
 
             }
         };
@@ -135,21 +137,29 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
             public void onClick(View view) {
                 quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Next button clicked.");
 
+//                if(userAnswerList.get(currentQuestionIndex) == null) {
+//                    Toast toast;
+//                    toast = Toast.makeText(QuestionDisplayActivity.this, "Please select an answer.", Toast.LENGTH_SHORT);
+//                    toast.show();
+//                    return;
+//                }
+
+                //Reset the toggle buttons
                 for (int j = 0; j < group.getChildCount(); j++) {
                     final ToggleButton button = (ToggleButton) group.getChildAt(j);
                     button.setChecked(false);
                 }
 
 
-                if (currentQuestionIndex == questionList.size() - 2) {
+                if (getCurrentQuestionIndex() == questionList.size() - 2) {
 
-                    currentQuestionIndex++;
+                    setCurrentQuestionIndex(getCurrentQuestionIndex()+1);
                     buttonSubmit.setVisibility(View.VISIBLE);
                     buttonNext.setVisibility(View.INVISIBLE);
 
                     displayQuestion();
                 } else {
-                    currentQuestionIndex++;
+                    setCurrentQuestionIndex(getCurrentQuestionIndex()+1);
                     displayQuestion();
                 }
 
@@ -174,9 +184,9 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         displayQuestion();
     }
 
-    public void displayQuestion(){
-        quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("CurrentIndex: " + currentQuestionIndex);
-        Question q = questionList.get(currentQuestionIndex);
+    public  void displayQuestion(){
+        quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("CurrentIndex: " + getCurrentQuestionIndex());
+        Question q = questionList.get(getCurrentQuestionIndex());
         questionTextDisplay.setText(q.getText());
         buttonA.setText(q.getOptionA());
         buttonB.setText(q.getOptionB());
@@ -186,12 +196,26 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
     public void submitQuiz(){
 
-        //TODO: Check if all questions have been answered.
 
-        Toast toast = Toast.makeText(this,"Answers submitted.",Toast.LENGTH_SHORT);
-        toast.show();
+        if(userAnswerList.get(getCurrentQuestionIndex()) == null) {
 
-        //TODO: Add code to submit the data to results screen.
+            Toast toast = Toast.makeText(this, "Please select an answer.", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+        else{
+
+
+            Intent intent = new Intent(QuestionDisplayActivity.this,ResultActivity.class);
+            intent.putExtra("QuestionList",this.questionList);
+            intent.putExtra("AnswerList",userAnswerList);
+            startActivity(intent);
+
+            Toast toast = Toast.makeText(this, "Answers submitted.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+
 
     }
 
@@ -199,9 +223,42 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     @Override
     public void getQuestionsList(ArrayList<Question> questionsPojos) {
         this.questionList = questionsPojos;
+        quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("quiz size"+ questionList.size());
         userAnswerList = new ArrayList<String>(questionList.size());
 
 
         displayQuestion();
+    }
+
+    String tokenize(ArrayList<String> list){
+        String tokenString;
+        tokenString = TextUtils.join(",", list.toArray());
+        return tokenString;
+    }
+
+    ArrayList<String> charSequenceToString(ArrayList<CharSequence> list){
+
+        ArrayList<String> result = new ArrayList<String>();
+
+        for(CharSequence i : list){
+            result.add(i.toString());
+        }
+
+        return result;
+
+    }
+
+    public int getCurrentQuestionIndex() {
+
+        synchronized (lock){
+            return currentQuestionIndex;
+        }
+
+    }
+
+    public void setCurrentQuestionIndex(int currentQuestionIndex) {
+        synchronized (lock) {
+            this.currentQuestionIndex = currentQuestionIndex;
+        }
     }
 }

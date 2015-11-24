@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="quiz.mobile.hiliti.com.hiltimobileapp" >
+    package="quiz.mobile.hiliti.com.hiltimobileapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,7 +14,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ResultActivity"
             android:label="@string/app_name" >
@@ -23,34 +23,54 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
         </activity>
+
         <activity
             android:name=".TrainingActivity"
             android:label="@string/title_activity_training"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="quiz.mobile.hiliti.com.hiltimobileapp.MainActivity" />
         </activity>
+
         <activity
             android:name=".ToolTrainingActivity"
             android:label="@string/title_activity_tool_training"
-            android:parentActivityName=".TrainingActivity" >
+            android:parentActivityName=".TrainingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="quiz.mobile.hiliti.com.hiltimobileapp.TrainingActivity" />
         </activity>
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".QuestionDisplayActivity"
             android:label="@string/title_activity_question_display" />
-
-
+        <activity
+            android:name=".TakeQuizOptions"
+            android:label="@string/take_quiz" >
+        </activity>
+        <activity
+            android:name=".CreateQuestionActivity"
+            android:label="@string/title_activity_create_question"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="quiz.mobile.hiliti.com.hiltimobileapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

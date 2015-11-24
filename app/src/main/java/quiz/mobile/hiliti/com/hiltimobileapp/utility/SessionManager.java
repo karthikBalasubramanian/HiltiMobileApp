@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.Tags;
+import quiz.mobile.hiliti.com.hiltimobileapp.json.Endpoints;
 
 /**
  * Created by vaishu on 06-11-2015.
@@ -19,23 +20,15 @@ public class SessionManager {
     SharedPreferences.Editor editor;
     Context _context;
 
-    // Shared pref mode
-    int PRIVATE_MODE = 0;
-
-    // Shared preferences file name
-    private static final String PREF_NAME = "HiltiUserLogin";
-
-    private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
-
     public SessionManager(Context context) {
         this._context = context;
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        pref = _context.getSharedPreferences(Tags.PREF_NAME, Tags.PRIVATE_MODE);
         editor = pref.edit();
     }
 
     public void setLogin(boolean isLoggedIn) {
 
-        editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
+        editor.putBoolean(Tags.KEY_IS_LOGGEDIN, isLoggedIn);
 
         // commit changes
         editor.commit();
@@ -47,11 +40,21 @@ public class SessionManager {
 
         editor.putString(Tags.USER_NAME,username);
         editor.putString(Tags.EMAIL,email);
-        editor.putString(Tags.PROFILE_PIC,profilePic);
+        editor.putString(Tags.PROFILE_PIC, Endpoints.getImageFromServer(profilePic));
         editor.commit();
         Log.d(TAG,"user details saved");
     }
     public boolean isLoggedIn(){
-        return pref.getBoolean(KEY_IS_LOGGEDIN, false);
+        return pref.getBoolean(Tags.KEY_IS_LOGGEDIN, false);
     }
+
+    public void setQuestionRequest(String no_of_questions, String topics, String levels){
+
+        editor.putString(Tags.NO_OF_QUESTION,no_of_questions);
+        editor.putString(Tags.TOPIC_LIST,topics);
+        editor.putString(Tags.DIFFICULTY_LEVELS, levels);
+        editor.commit();
+        Log.d(TAG,"Question request details saved");
+    }
+
 }

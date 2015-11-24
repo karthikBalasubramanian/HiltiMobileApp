@@ -1,16 +1,31 @@
 package quiz.mobile.hiliti.com.hiltimobileapp.json;
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.RequestFuture;
 
 import org.json.JSONArray;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import quiz.mobile.hiliti.com.hiltimobileapp.HiltiApplication;
+import quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity;
+import quiz.mobile.hiliti.com.hiltimobileapp.constants.Tags;
+import quiz.mobile.hiliti.com.hiltimobileapp.constants.UrlEndpoints;
 import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.QuestionRequest;
 
 /**
  * Created by vaishu on 03-11-2015.
@@ -34,4 +49,38 @@ public class Requestor {
         }
         return jsonArray;
     }
+
+    public static JSONArray requestQuestionJSON(RequestQueue requestQueue, String url, String questionTag)  {
+        SharedPreferences preferences = HiltiApplication.getAppContext().getSharedPreferences(Tags.PREF_NAME, Context.MODE_PRIVATE);
+        String noOfQuestions = preferences.getString(Tags.NO_OF_QUESTION, "5");
+        String topicList = preferences.getString(Tags.TOPIC_LIST, "drill");
+        String difficulty = preferences.getString(Tags.DIFFICULTY_LEVELS, "3");
+        JSONArray jsonArray = new JSONArray();
+        try {
+            url = url+ UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.QUESTION_PARAMS_TOPIC+URLEncoder.encode(topicList, UrlEndpoints.URL_ENCODER)+UrlEndpoints.URL_CHAR_AMEPERSAND+ UrlEndpoints.QUESTION_PARAMS_DIFFICULTY+URLEncoder.encode(difficulty,UrlEndpoints.URL_ENCODER)+UrlEndpoints.URL_CHAR_AMEPERSAND+ UrlEndpoints.QUESTION_PARAM_QNO+URLEncoder.encode(noOfQuestions,UrlEndpoints.URL_ENCODER);
+        } catch (UnsupportedEncodingException e) {
+            Log.m("encoding error");
+            e.printStackTrace();
+        }
+        Log.m("URL is "+url);
+        RequestFuture<JSONArray> requestFuture = RequestFuture.newFuture();
+        //int method, String url, Listener<JSONArray> listener, ErrorListener errorListener
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,requestFuture,requestFuture);
+        jsonArrayRequest.setTag(questionTag);
+        requestQueue.add(jsonArrayRequest);
+        try {
+            jsonArray = requestFuture.get(3000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            Log.m(e + "");
+        } catch (ExecutionException e) {
+            Log.m(e + "");
+        } catch (TimeoutException e) {
+            Log.m(e + "");
+        }
+        return jsonArray;
+    }
+
+
+
+
 }

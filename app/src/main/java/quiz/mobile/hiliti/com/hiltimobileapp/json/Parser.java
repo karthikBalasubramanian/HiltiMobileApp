@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.Keys;
 import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Topic;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.TrainingPojo;
 
 /**
@@ -62,5 +63,25 @@ public class Parser {
             Log.m("inside json exception");
         }
         return questionsList;
+    }
+
+    public static ArrayList<Topic> getTopic(JSONArray arrayResponse){
+        ArrayList<Topic> topicList = new ArrayList<Topic>();
+        Topic topicPojo = null;
+        Log.m("Responses: "+arrayResponse.toString());
+        Log.m("\nLength: "+arrayResponse.length());
+        try{ for(int i=0; i<arrayResponse.length();i++){
+            JSONObject newJsonObject = arrayResponse.getJSONObject(i);
+            topicPojo = new Topic();
+
+            topicPojo.setTopicid(newJsonObject.getInt(Keys.TopicInterface.T_ID));
+            topicPojo.setTopicName(newJsonObject.getString(Keys.TopicInterface.T_NAME));
+
+            topicList.add(topicPojo);
+        }}catch (JSONException e) {
+
+            Log.m("inside json exception");
+        }
+        return topicList;
     }
 }

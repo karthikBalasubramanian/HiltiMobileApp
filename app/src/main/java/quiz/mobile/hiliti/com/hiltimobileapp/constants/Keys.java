@@ -24,5 +24,10 @@ public interface Keys {
         public static String CORRECT_ANS="correctAns";
         public static String STATUS = "status";
     }
+
+    public interface TopicInterface{
+        public static String T_ID="topicid";
+        public static String T_NAME="topicName";
+    }
 }
 

@@ -20,6 +20,7 @@ public class Question implements Serializable {
     private String optionD;
     private String correctAns;
     private String status;
+    private String answerByUser;
 
 
     public int getQid() {
@@ -140,5 +141,11 @@ public class Question implements Serializable {
         this.status = status;
     }
 
+    public String getAnswerByUser() {
+        return answerByUser;
+    }
 
+    public void setAnswerByUser(String answerByUser) {
+        this.answerByUser = answerByUser;
+    }
 }

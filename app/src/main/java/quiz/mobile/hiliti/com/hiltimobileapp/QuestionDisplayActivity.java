@@ -47,7 +47,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
     int currentQuestionIndex = 0;
 
-    ArrayList<String> userAnswerList;
+//    ArrayList<String> userAnswerList;
 
 
     @Override
@@ -107,22 +107,22 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
                     if(view.getId() == checkedID){
 
                         if(checkedID == R.id.buttonOptionA){
-                            userAnswerList.add(getCurrentQuestionIndex(),"a");
+                            questionList.get(getCurrentQuestionIndex()).setAnswerByUser("a");
                         }
                         else if(checkedID == R.id.buttonOptionB){
-                            userAnswerList.add(getCurrentQuestionIndex(),"b");
+                            questionList.get(getCurrentQuestionIndex()).setAnswerByUser("b");
                         }
                         else if(checkedID == R.id.buttonOptionC){
-                            userAnswerList.add(getCurrentQuestionIndex(), "c");
+                            questionList.get(getCurrentQuestionIndex()).setAnswerByUser("c");
                         } else if(checkedID == R.id.buttonOptionD){
-                            userAnswerList.add(getCurrentQuestionIndex(), "d");
+                            questionList.get(getCurrentQuestionIndex()).setAnswerByUser("d");
                         }
 
                     }
 
                 }
 
-                Log.d("QuestionDisplay", "Selected"+userAnswerList.get(getCurrentQuestionIndex()));
+                Log.d("QuestionDisplay", "Selected"+questionList.get(getCurrentQuestionIndex()).getAnswerByUser());
 
             }
         };
@@ -145,11 +145,11 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 //                }
 
 //                Reset the toggle buttons
-                RadioButton button;
-                for (int j = 0; j < group.getChildCount(); j++) {
-                    button = (RadioButton) group.getChildAt(j);
-                    button.setChecked(false);
-                }
+//                RadioButton button;
+//                for (int j = 0; j < group.getChildCount(); j++) {
+//                    button = (RadioButton) group.getChildAt(j);
+//                    button.setChecked(false);
+//                }
 
 
                 quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Button group reset.");
@@ -198,10 +198,15 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Display question invoked.");
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("CurrentIndex: " + getCurrentQuestionIndex());
         RadioButton button;
-        for (int j = 0; j < group.getChildCount(); j++) {
-            button = (RadioButton) group.getChildAt(j);
-            button.setChecked(false);
-        }
+//        for (int j = 0; j < group.getChildCount(); j++) {
+//            button = (RadioButton) group.getChildAt(j);
+//            button.setChecked(false);
+//        }
+
+        ((RadioButton)findViewById(R.id.buttonOptionA)).setChecked(false);
+        ((RadioButton)findViewById(R.id.buttonOptionB)).setChecked(false);
+        ((RadioButton)findViewById(R.id.buttonOptionC)).setChecked(false);
+        ((RadioButton)findViewById(R.id.buttonOptionD)).setChecked(false);
         Question q = questionList.get(getCurrentQuestionIndex());
         questionTextDisplay.setText(q.getText());
         buttonA.setText(q.getOptionA());
@@ -215,7 +220,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Entered submit quiz." +"");
 
 
-        if(userAnswerList.get(getCurrentQuestionIndex()) == null) {
+        if(questionList.get(getCurrentQuestionIndex()).getAnswerByUser() == null) {
 
             Toast toast = Toast.makeText(this, "Please select an answer.", Toast.LENGTH_SHORT);
             toast.show();
@@ -226,7 +231,6 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
             Intent intent = new Intent(QuestionDisplayActivity.this,ResultActivity.class);
             intent.putExtra("QuestionList",this.questionList);
-            intent.putExtra("AnswerList",userAnswerList);
             startActivity(intent);
 
             Toast toast = Toast.makeText(this, "Answers submitted.", Toast.LENGTH_SHORT);
@@ -242,7 +246,6 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     public void getQuestionsList(ArrayList<Question> questionsPojos) {
         this.questionList = questionsPojos;
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("quiz size"+ questionList.size());
-        userAnswerList = new ArrayList<String>(questionList.size());
         currentQuestionIndex = 0;
         displayQuestion();
     }

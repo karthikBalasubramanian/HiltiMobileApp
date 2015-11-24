@@ -1,30 +1,18 @@
 package quiz.mobile.hiliti.com.hiltimobileapp;
 
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import javax.xml.datatype.Duration;
-
-import quiz.mobile.hiliti.com.hiltimobileapp.adapter.RecyclerViewAdapter;
 import quiz.mobile.hiliti.com.hiltimobileapp.adapter.RecyclerViewAdapterResult;
-import quiz.mobile.hiliti.com.hiltimobileapp.callbacks.QuestionsCallBackListener;
 import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
 import quiz.mobile.hiliti.com.hiltimobileapp.model.ViewModel;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
-import quiz.mobile.hiliti.com.hiltimobileapp.pojo.TrainingPojo;
-import quiz.mobile.hiliti.com.hiltimobileapp.task.QuestionAsyncTask;
-import quiz.mobile.hiliti.com.hiltimobileapp.task.TrainingAsyncTask;
 
 
 

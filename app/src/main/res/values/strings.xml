@@ -14,4 +14,5 @@
     <string name="hilti_user_email_prompt">user@hilti.com</string>
     <string name="hilti_user_password">password</string>
     <string name="title_activity_question_display">QuestionDisplayActivity</string>
+    <string name="title_activity_result">ResultActivity</string>
 </resources>

@@ -3,15 +3,16 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="quiz.mobile.hiliti.com.hiltimobileapp.Training">
+    <!--    below old bg     android:background="#272A2F"-->
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/trainingView"
     android:orientation="vertical">
     <quiz.mobile.hiliti.com.hiltimobileapp.widget.GridRecyclerView
+        android:background="@drawable/hilti_wall"
         android:id="@+id/recycler"
         android:layout_marginTop="55dp"
-        android:background="#272A2F"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutAnimation="@anim/grid_layout_animation"

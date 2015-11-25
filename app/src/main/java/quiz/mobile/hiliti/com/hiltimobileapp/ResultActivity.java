@@ -1,10 +1,14 @@
 package quiz.mobile.hiliti.com.hiltimobileapp;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,13 +31,13 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
 
     ViewModel viewModel = null;
     Question Qpojo = null;
-
+    Button btnExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
+        initToolbar();
         initRecyclerView();
         content = findViewById(R.id.resultview);
         ArrayList<Question> question = (ArrayList<Question>)getIntent().getSerializableExtra("QuestionList");
@@ -41,6 +45,15 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
         recyclerViewAdapter.setViewModels(question);
         calculateScore(question);
        // / if (jsonResponse.isEmpty()) new QuestionAsyncTask(this).execute();
+
+        btnExit = (Button) findViewById(R.id.btn_exitLeaderboard);
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -86,4 +99,22 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
         Toast.makeText(this,qscore,Toast.LENGTH_LONG).show();
     }
 
+    private void initToolbar() {
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.resultToolbar);
+        setSupportActionBar(toolbar);
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

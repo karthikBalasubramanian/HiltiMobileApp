@@ -103,7 +103,7 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
                         
 
                         else{
-
+finish();
                             Intent intent = new Intent(TakeQuizOptions.this, QuestionDisplayActivity.class);
 //
                             intent.putExtra("Selectedtopics",selectedTopics);

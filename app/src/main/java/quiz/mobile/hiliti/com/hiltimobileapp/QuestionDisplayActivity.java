@@ -208,7 +208,6 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Entered submit quiz." +"");
 
-
         if(questionList.get(getCurrentQuestionIndex()).getAnswerByUser() == null) {
 
             Toast toast = Toast.makeText(this, "Please select an answer.", Toast.LENGTH_SHORT);
@@ -216,7 +215,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
             return;
         }
         else{
-
+            finish();
 
             Intent intent = new Intent(QuestionDisplayActivity.this,ResultActivity.class);
             intent.putExtra("QuestionList",this.questionList);
@@ -270,4 +269,6 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
             this.currentQuestionIndex = currentQuestionIndex;
         }
     }
+
+
 }

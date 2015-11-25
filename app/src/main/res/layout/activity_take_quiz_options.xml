@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:layout_weight="0.25"
+                android:layout_weight="0.3"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Questions"
                 android:id="@+id/textView_"
@@ -41,7 +41,7 @@
                 android:id="@+id/spinner_numberOfQues"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:layout_weight="0.75"
+                android:layout_weight="0.7"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:hint="Questions"
                 android:ems="10" />
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:layout_weight="0.25"
+                android:layout_weight="0.3"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Topics"
                 android:id="@+id/textView_topics"
@@ -65,7 +65,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:layout_weight="0.75"
+                android:layout_weight="0.7"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:hint="Select Topics"
                 android:id="@+id/select_topics"
@@ -82,7 +82,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:layout_weight="0.25"
+                android:layout_weight="0.3"
                 android:text="Difficulty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/textView_difficultyLevel"
@@ -94,7 +94,7 @@
                 android:id="@+id/select_difficultyLevel"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:layout_weight="0.75"
+                android:layout_weight="0.7"
                 android:background="#0000"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:gravity="center_vertical|left"

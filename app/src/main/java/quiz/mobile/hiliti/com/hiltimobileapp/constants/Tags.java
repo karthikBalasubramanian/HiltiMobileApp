@@ -13,6 +13,12 @@ public class Tags {
     public static final String USER_NAME = "LoggedUserName";
     public static final String EMAIL = "LoggedUserEmail";
     public static final String PROFILE_PIC = "LoggedUserPic";
+    public static final String EMP_ID = "empid";
+    public static final String DEPARTMENT = "department";
+    public static final String TOTAL_SCORE = "totalScore";
+
+
+
     public static final String KEY_IS_LOGGEDIN = "isLoggedIn";
     public static final int PRIVATE_MODE = 0;
     public static String TRAINING_TAG= TrainingActivity.class.getSimpleName();

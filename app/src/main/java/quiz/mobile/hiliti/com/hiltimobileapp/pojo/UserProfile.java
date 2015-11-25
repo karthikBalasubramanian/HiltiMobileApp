@@ -13,6 +13,7 @@ public class UserProfile {
     private String department;
     private String asOfDate;
     private String email;
+    private int totalScore;
 
     public int getEmpId() {
         return empId;
@@ -84,5 +85,13 @@ public class UserProfile {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
 }

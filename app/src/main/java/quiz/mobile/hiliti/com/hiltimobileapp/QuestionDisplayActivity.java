@@ -73,10 +73,6 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
 
         if (questionList.isEmpty()) new QuestionAsyncTask(this).execute();
 
-
-
-
-
         questionTextDisplay = (TextView) findViewById(R.id.questionText);
 
         buttonA = (RadioButton) findViewById(R.id.buttonOptionA);
@@ -87,13 +83,6 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         buttonNext = (FloatingActionButton) findViewById(R.id.fab_next_question);
 
         addListenerOnButtons();
-
-
-
-
-
-
-
     }
 
 

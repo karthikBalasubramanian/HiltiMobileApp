@@ -149,7 +149,7 @@ public class LoginActivity extends Activity {
                         // Create login session
                         sessionManager.setLogin(true);
                         //set profile details in shared preference
-                        sessionManager.setUserCred(jObj.getString("firstName"), jObj.getString("email"), jObj.getString("displayPic"));
+                        sessionManager.setUserCred(jObj.getString("firstName"), jObj.getString("email"), jObj.getString("displayPic"), jObj.getInt("empid"),jObj.getString("department"),jObj.getInt("totalScore"));
 
                         userProfile.setEmpId(jObj.getInt("empid"));
                         userProfile.setPassword(jObj.getString("password"));
@@ -159,6 +159,7 @@ public class LoginActivity extends Activity {
                         userProfile.setDepartment(jObj.getString("department"));
                         userProfile.setEmail(jObj.getString("email"));
                         userProfile.setAsOfDate(jObj.getString("asOfDate"));
+                        userProfile.setTotalScore(jObj.getInt("totalScore"));
 
                         Intent intent = new Intent(LoginActivity.this,
                                 MainActivity.class);

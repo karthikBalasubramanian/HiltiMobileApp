@@ -235,7 +235,15 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         this.questionList = questionsPojos;
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("quiz size"+ questionList.size());
         currentQuestionIndex = 0;
-        displayQuestion();
+        if(questionList.size()!=0){
+        displayQuestion();}
+        else{
+            Toast toast = Toast.makeText(this, "No questions are available. Please try later.", Toast.LENGTH_SHORT);
+            toast.show();
+            Intent intent = new Intent(QuestionDisplayActivity.this, TakeQuizOptions.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     String tokenize(ArrayList<String> list){

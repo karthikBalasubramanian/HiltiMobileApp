@@ -22,7 +22,6 @@ public class UrlEndpoints {
         public static final String ANSWERED_CORRECT_URL="/answeredCorrect/createAnsweredCorrect";
         public static final String Q_ID_PARAM_ANSWERED_="questionId=";
         public static final String EMP_ID_PARAM_ANSWERED="empId=";
-
-
+        public static final String URL_UPDATE_ALL_ANSWERS="/answeredCorrect/updateAllAnswers";
 
 }

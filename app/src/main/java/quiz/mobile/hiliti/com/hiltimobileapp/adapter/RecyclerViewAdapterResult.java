@@ -49,7 +49,7 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
 
 
     private ArrayList<Question> items = new ArrayList<Question>();
-
+    SharedPreferences sharedPreferences= HiltiApplication.getAppContext().getSharedPreferences(Tags.PREF_NAME, Context.MODE_PRIVATE);
     //private OnItemClickListener onItemClickListener;
 
     VolleySingleton volleySingleton;
@@ -93,15 +93,15 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
         holder.text.setText(item.getText());
         if(item.getCorrectAns().equalsIgnoreCase(item.getAnswerByUser())) {
             //holder.ImageView.setImageUrl(item.getImageRes(), mImageLoader);
-            holder.text.setBackgroundColor(0xff00ff00);
+            sendCorrectQuestions(item.getQid());
+            holder.text.setBackgroundColor(0xFF68FF57);
         }
         else
         {
 
-            holder.text.setBackgroundColor(0xffff0000);
+            holder.text.setBackgroundColor(0xFFFF664E);
         }
             holder.itemView.setTag(item);
-
     }
 
     @Override
@@ -140,5 +140,9 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
 
     }*/
 
-
+    public void sendCorrectQuestions(int qid){
+        String url = UrlEndpoints.API_SERVER+UrlEndpoints.ANSWERED_CORRECT_URL+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.Q_ID_PARAM_ANSWERED_+qid+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,0);
+        Log.m("url is "+url);
+        Requestor.answeredCorrectStringRequest(mRequestQueue, url,Tags.RESULT_TAG);
+    }
 }

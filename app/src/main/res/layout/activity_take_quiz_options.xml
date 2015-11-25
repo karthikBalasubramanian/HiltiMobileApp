@@ -110,7 +110,7 @@
             android:text="Take Quiz"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dip"
-            android:background="#ff0000"
+            android:background="#f44437"
             android:textColor="#ffffff"
             android:textStyle="bold" />
     </LinearLayout>

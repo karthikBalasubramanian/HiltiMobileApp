@@ -49,12 +49,11 @@
                     android:layout_weight="1"
                     android:textSize="14sp"
                     android:background="@drawable/background_border_red"
-                    android:textColorHighlight="@color/primary"
+                    android:textColorHighlight="@color/accent"
+                    android:layout_marginBottom="20dp"
                     android:buttonTint="@color/primary" />
 
-                <android.widget.Space
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
+
 
                 <RadioButton android:id="@+id/buttonOptionB"
                     android:layout_height="wrap_content"
@@ -62,12 +61,11 @@
                     android:layout_weight="1"
                     android:textSize="14sp"
                     android:background="@drawable/background_border_red"
-                    android:textColorHighlight="@color/primary"
+                    android:textColorHighlight="@color/accent"
+                    android:layout_marginBottom="20dp"
                     android:buttonTint="@color/primary"
                     />
-                <android.widget.Space
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
+
 
                 <RadioButton android:id="@+id/buttonOptionC"
                     android:layout_height="wrap_content"
@@ -75,11 +73,10 @@
                     android:layout_weight="1"
                     android:textSize="14sp"
                     android:background="@drawable/background_border_red"
-                    android:textColorHighlight="@color/primary"
+                    android:textColorHighlight="@color/accent"
+                    android:layout_marginBottom="20dp"
                     android:buttonTint="@color/primary"/>
-                <android.widget.Space
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
+
 
                 <RadioButton android:id="@+id/buttonOptionD"
                     android:layout_height="wrap_content"
@@ -87,7 +84,7 @@
                     android:layout_weight="1"
                     android:textSize="14sp"
                     android:background="@drawable/background_border_red"
-                    android:textColorHighlight="@color/primary"
+                    android:textColorHighlight="@color/accent"
                     android:buttonTint="@color/primary"/>
             </RadioGroup>
 

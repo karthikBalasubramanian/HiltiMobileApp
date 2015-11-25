@@ -1,5 +1,6 @@
 package quiz.mobile.hiliti.com.hiltimobileapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +11,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.adapter.RecyclerViewAdapterResult;
+import quiz.mobile.hiliti.com.hiltimobileapp.constants.Tags;
+import quiz.mobile.hiliti.com.hiltimobileapp.constants.UrlEndpoints;
+import quiz.mobile.hiliti.com.hiltimobileapp.json.Requestor;
 import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
 import quiz.mobile.hiliti.com.hiltimobileapp.model.ViewModel;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.AnsweredCorrect;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
 
 
@@ -24,7 +29,8 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
     private RecyclerViewAdapterResult recyclerViewAdapter;
     private ArrayList<Question> jsonResponse = new ArrayList<Question>();
     private ArrayList<ViewModel> viewModels = new ArrayList<ViewModel>();
-
+    SharedPreferences sharedPreferences=HiltiApplication.getAppContext().getSharedPreferences(Tags.PREF_NAME, MODE_PRIVATE);
+    ArrayList<AnsweredCorrect> answeredCorrects = new ArrayList<AnsweredCorrect>();
     ViewModel viewModel = null;
     Question Qpojo = null;
 
@@ -40,6 +46,8 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
       //  ArrayList<String> answers=(ArrayList<String>)getIntent().getSerializableExtra("AnswerList");
         recyclerViewAdapter.setViewModels(question);
         calculateScore(question);
+        collectAllRightAnswers(question);
+        Requestor.answeredCorrectStringRequest(answeredCorrects,Tags.RESULT_TAG);
        // / if (jsonResponse.isEmpty()) new QuestionAsyncTask(this).execute();
     }
 
@@ -84,6 +92,22 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
 
         String qscore=String.valueOf(score);
         Toast.makeText(this,qscore,Toast.LENGTH_LONG).show();
+    }
+    public void collectAllRightAnswers(ArrayList<Question> questions){
+        AnsweredCorrect answeredCorrect = null;
+        Question question = null;
+        //String url = null;
+        for (int i=0; i<questions.size();i++){
+            question = questions.get(i);
+            if(question.getAnswerByUser().equalsIgnoreCase(question.getCorrectAns())){
+                answeredCorrect = new AnsweredCorrect();
+                answeredCorrect.setEmpid(sharedPreferences.getInt(Tags.EMP_ID,0));
+                answeredCorrect.setQid(question.getQid());
+                //url = UrlEndpoints.API_SERVER+UrlEndpoints.ANSWERED_CORRECT_URL+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.Q_ID_PARAM_ANSWERED_+question.getQid()+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,0);
+                answeredCorrects.add(answeredCorrect);
+            }
+        }
+
     }
 
 }

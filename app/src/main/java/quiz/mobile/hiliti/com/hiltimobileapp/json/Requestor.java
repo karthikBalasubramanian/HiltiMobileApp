@@ -13,11 +13,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -29,6 +33,8 @@ import quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity;
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.Tags;
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.UrlEndpoints;
 import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
+import quiz.mobile.hiliti.com.hiltimobileapp.network.VolleySingleton;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.AnsweredCorrect;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.QuestionRequest;
 
 /**
@@ -84,27 +90,48 @@ public class Requestor {
         return jsonArray;
     }
 
-    public static void answeredCorrectStringRequest(RequestQueue requestQueue,String url,String answeredHistoryTag){
+    public static void answeredCorrectStringRequest(final ArrayList<AnsweredCorrect>correctAnswers,String answeredHistoryTag) {
         Log.m("answeredCorrectcalled");
-        StringRequest strReq = new StringRequest(Request.Method.GET,
-                url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+            String url = UrlEndpoints.API_SERVER+UrlEndpoints.URL_UPDATE_ALL_ANSWERS;
+
+            //RequestFuture<String> requestFuture = RequestFuture.newFuture();
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
                     Log.m("inside response");
-                    if(response!=null){
-
-                        Log.m("response for success "+response.toString());
+                    if (response != null) {
+                        JSONArray jsonAraay = new JSONArray(correctAnswers);
+                        Log.m("json array is "+ jsonAraay.toString());
+                        Log.m("response for success " + response.toString());
                     }
+                }
+            }, new Response.ErrorListener() {
 
-            }
-        },new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Gson gson = new GsonBuilder().create();
+                    JsonArray jsonArray = gson.toJsonTree(correctAnswers).getAsJsonArray();
+                    Log.m(jsonArray.toString());
+                    Log.m("answer_correct update error" + error.getMessage().toString());
+                }
+            }){
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.m("answer_correct update error" + error.getMessage());
-            }
-        });
-        requestQueue.add(strReq);
-    }
+                @Override
+                protected Map<String, String> getParams() {
+                    // Posting parameters to login url
+                    Map<String, String> params = new HashMap<String, String>();
+                    JSONArray jsonAraay = new JSONArray(correctAnswers);
+                    Log.m("json array is " + jsonAraay.toString());
+                    params.put("allAnswers", jsonAraay.toString());
+                    return params;
+                }
+
+            };
+            strReq.setTag(answeredHistoryTag);
+            VolleySingleton.getvSingletonInstance().getmRequestQueue().add(strReq);
+
+        }
 
 }

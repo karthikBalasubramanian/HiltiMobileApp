@@ -96,7 +96,7 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
         }
 
         String qscore=String.valueOf(score);
-        Toast.makeText(this,qscore,Toast.LENGTH_LONG).show();
+    //    Toast.makeText(this,qscore,Toast.LENGTH_LONG).show();
     }
 
     private void initToolbar() {

@@ -94,15 +94,14 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
         if(item.getCorrectAns().equalsIgnoreCase(item.getAnswerByUser())) {
             //holder.ImageView.setImageUrl(item.getImageRes(), mImageLoader);
             sendCorrectQuestions(item.getQid());
-            holder.text.setBackgroundColor(0xff00ff00);
+            holder.text.setBackgroundColor(0xFF68FF57);
         }
         else
         {
 
-            holder.text.setBackgroundColor(0xffff0000);
+            holder.text.setBackgroundColor(0xFFFF664E);
         }
             holder.itemView.setTag(item);
-
     }
 
     @Override

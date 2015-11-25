@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         public boolean onNavigationItemSelected(MenuItem menuItem) {
                             if (menuItem.getTitle().toString().equalsIgnoreCase("Training")) {
                                 menuItem.setChecked(true);
-                                startNewActivity();
+                                startNewActivityTraining();
 
                             } else if (menuItem.getTitle().toString().equalsIgnoreCase("Take Quiz")) {
                                 menuItem.setChecked(true);
@@ -124,6 +124,10 @@ public class MainActivity extends AppCompatActivity {
                             } else if (menuItem.getTitle().toString().equalsIgnoreCase("Leader board")) {
                                 menuItem.setChecked(true);
                                 startNewActivityLeaderboard();
+                            } else if (menuItem.getTitle().toString().equalsIgnoreCase("Logout")) {
+                                menuItem.setChecked(true);
+                                finish();
+                                startLoginActivity();
                             } else {
                                 Snackbar.make(content, menuItem.getTitle() + " pressed", Snackbar.LENGTH_LONG).show();
                                 menuItem.setChecked(true);
@@ -136,8 +140,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void startNewActivity() {
+    private void startNewActivityTraining() {
         Intent intent = new Intent(this, TrainingActivity.class);
+        startActivity(intent);
+    }
+
+    private void startLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

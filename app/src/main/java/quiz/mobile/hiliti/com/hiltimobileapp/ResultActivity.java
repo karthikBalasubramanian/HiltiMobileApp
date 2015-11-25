@@ -39,6 +39,7 @@ public class ResultActivity extends AppCompatActivity implements RecyclerViewAda
         ArrayList<Question> question = (ArrayList<Question>)getIntent().getSerializableExtra("QuestionList");
       //  ArrayList<String> answers=(ArrayList<String>)getIntent().getSerializableExtra("AnswerList");
         recyclerViewAdapter.setViewModels(question);
+        calculateScore(question);
        // / if (jsonResponse.isEmpty()) new QuestionAsyncTask(this).execute();
     }
 
@@ -70,6 +71,19 @@ public class ResultActivity extends AppCompatActivity implements RecyclerViewAda
         jsonResponse = getIntent().getExtras("QuestionList");
         recyclerViewAdapter.setViewModels(jsonResponse);
     }*/
+    public void calculateScore(ArrayList<Question> questions)
+    {
+        int score=0;
+        for(Question q : questions) {
 
+            if(q.getCorrectAns().equalsIgnoreCase(q.getAnswerByUser()))
+            {
+                score =score + q.getDifficulty();
+            }
+        }
+
+        String qscore=String.valueOf(score);
+        Toast.makeText(this,qscore,Toast.LENGTH_LONG).show();
+    }
 
 }

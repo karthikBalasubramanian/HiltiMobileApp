@@ -19,6 +19,9 @@ public class UrlEndpoints {
         public static final String QUESTION_PARAMS_DIFFICULTY="difficulty=";
         public static final String URL_ENCODER = "UTF-8";
         public static final String QUESTION_PARAM_QNO = "qno=";
+        public static final String ANSWERED_CORRECT_URL="/answeredCorrect/createAnsweredCorrect";
+        public static final String Q_ID_PARAM_ANSWERED_="questionId=";
+        public static final String EMP_ID_PARAM_ANSWERED="empId=";
 
 
 

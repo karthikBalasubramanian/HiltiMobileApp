@@ -16,7 +16,7 @@ import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
 
 
 
-public class ResultActivity extends AppCompatActivity implements RecyclerViewAdapterResult.OnItemClickListener {
+public class ResultActivity extends AppCompatActivity /*implements RecyclerViewAdapterResult.OnItemClickListener*/ {
 
 
     private View content;
@@ -51,19 +51,19 @@ public class ResultActivity extends AppCompatActivity implements RecyclerViewAda
 
     private void setRecyclerAdapter(RecyclerView recyclerView) {
         recyclerViewAdapter = new RecyclerViewAdapterResult();
-        recyclerViewAdapter.setOnItemClickListener(this);
+        //recyclerViewAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(recyclerViewAdapter);
         Log.m("count of adapters" + recyclerViewAdapter.getItemCount());
     }
 
 
 
-    @Override
+   /* @Override
     public void onItemClick(View view, Question Qpojo) {
       //  ToolTrainingActivity.navigate(this, view.findViewById(R.id.networkImageView), trainingPojo);
-        /*Snackbar.make(ontent,trainingPojo.getTitle()+ " pressed",Snackbar.LENGTH_LONG).show();*/
+        *//*Snackbar.make(ontent,trainingPojo.getTitle()+ " pressed",Snackbar.LENGTH_LONG).show();*//*
         Toast.makeText(getApplicationContext(),"seected", Toast.LENGTH_LONG).show();
-    }
+    }*/
 
     //@Override
    /* public void getItems() {

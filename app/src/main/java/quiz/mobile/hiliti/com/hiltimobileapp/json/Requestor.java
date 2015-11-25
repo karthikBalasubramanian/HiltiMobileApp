@@ -3,12 +3,16 @@ package quiz.mobile.hiliti.com.hiltimobileapp.json;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.RequestFuture;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 
@@ -80,7 +84,27 @@ public class Requestor {
         return jsonArray;
     }
 
+    public static void answeredCorrectStringRequest(RequestQueue requestQueue,String url,String answeredHistoryTag){
+        Log.m("answeredCorrectcalled");
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                    Log.m("inside response");
+                    if(response!=null){
 
+                        Log.m("response for success "+response.toString());
+                    }
 
+            }
+        },new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.m("answer_correct update error" + error.getMessage());
+            }
+        });
+        requestQueue.add(strReq);
+    }
 
 }

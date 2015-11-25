@@ -16,6 +16,8 @@
 
 package quiz.mobile.hiliti.com.hiltimobileapp.adapter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
@@ -25,28 +27,37 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import quiz.mobile.hiliti.com.hiltimobileapp.HiltiApplication;
 import quiz.mobile.hiliti.com.hiltimobileapp.R;
+import quiz.mobile.hiliti.com.hiltimobileapp.constants.Tags;
+import quiz.mobile.hiliti.com.hiltimobileapp.constants.UrlEndpoints;
+import quiz.mobile.hiliti.com.hiltimobileapp.json.Requestor;
 import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
 import quiz.mobile.hiliti.com.hiltimobileapp.network.VolleySingleton;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
 
-public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerViewAdapterResult.ViewHolder> implements View.OnClickListener {
+public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerViewAdapterResult.ViewHolder> /*implements View.OnClickListener*/ {
 
 
     private ArrayList<Question> items = new ArrayList<Question>();
-    private OnItemClickListener onItemClickListener;
+    SharedPreferences sharedPreferences= HiltiApplication.getAppContext().getSharedPreferences(Tags.PREF_NAME, Context.MODE_PRIVATE);
+    //private OnItemClickListener onItemClickListener;
 
     VolleySingleton volleySingleton;
+    RequestQueue mRequestQueue;
 
     public RecyclerViewAdapterResult() {
         volleySingleton = VolleySingleton.getvSingletonInstance();
-
+        mRequestQueue = volleySingleton.getmRequestQueue();
     }
 
     public void setViewModels(ArrayList<Question> viewModels) {
@@ -57,15 +68,15 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
         this.items = items;
     }*/
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    /*public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
-    }
+    }*/
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.result_recycler, parent, false);
-        v.setOnClickListener(this);  // start listening to the view
+        //v.setOnClickListener(this);  // start listening to the view
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
 
@@ -82,7 +93,7 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
         holder.text.setText(item.getText());
         if(item.getCorrectAns().equalsIgnoreCase(item.getAnswerByUser())) {
             //holder.ImageView.setImageUrl(item.getImageRes(), mImageLoader);
-
+            sendCorrectQuestions(item.getQid());
             holder.text.setBackgroundColor(0xff00ff00);
         }
         else
@@ -99,7 +110,7 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
         return items.size();
     }
 
-    @Override
+   /* @Override
     public void onClick(final View v) {
         // Give some time to the ripple to finish the effect
         if (onItemClickListener != null) {
@@ -111,7 +122,7 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
                 }
             }, 200);
         }
-    }
+    }*/
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         //public ImageView ImageView;
@@ -124,11 +135,15 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
         }
     }
 
-    public interface OnItemClickListener {
+    /*public interface OnItemClickListener {
 
         void onItemClick(View view, Question Qpojo);
 
+    }*/
+
+    public void sendCorrectQuestions(int qid){
+        String url = UrlEndpoints.API_SERVER+UrlEndpoints.ANSWERED_CORRECT_URL+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.Q_ID_PARAM_ANSWERED_+qid+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,0);
+        Log.m("url is "+url);
+        Requestor.answeredCorrectStringRequest(mRequestQueue, url,Tags.RESULT_TAG);
     }
-
-
 }

@@ -41,7 +41,7 @@ public class SessionManager {
         editor.putString(Tags.USER_NAME,username);
         editor.putString(Tags.EMAIL,email);
         editor.putString(Tags.PROFILE_PIC, Endpoints.getImageFromServer(profilePic));
-        editor.putString(Tags.EMP_ID,Integer.toString(empid));
+        editor.putInt(Tags.EMP_ID,empid);
         editor.putString(Tags.DEPARTMENT,department);
         editor.putString(Tags.TOTAL_SCORE,Integer.toString(totalScore));
 

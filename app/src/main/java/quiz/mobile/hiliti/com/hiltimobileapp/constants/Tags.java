@@ -3,6 +3,7 @@ package quiz.mobile.hiliti.com.hiltimobileapp.constants;
 import quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity;
 import quiz.mobile.hiliti.com.hiltimobileapp.TakeQuizOptions;
 import quiz.mobile.hiliti.com.hiltimobileapp.TrainingActivity;
+import quiz.mobile.hiliti.com.hiltimobileapp.adapter.RecyclerViewAdapterResult;
 
 /**
  * Created by vaishu on 04-11-2015.
@@ -23,6 +24,7 @@ public class Tags {
     public static final int PRIVATE_MODE = 0;
     public static String TRAINING_TAG= TrainingActivity.class.getSimpleName();
     public static String QUESTION_TAG= QuestionDisplayActivity.class.getSimpleName();
+    public static String RESULT_TAG = RecyclerViewAdapterResult.class.getSimpleName();
     public static String TOPIC_TAG= TakeQuizOptions.class.getSimpleName();
     public static final String NO_OF_QUESTION = "NoOfQuestions";
     public static final String TOPIC_LIST = "topicName";

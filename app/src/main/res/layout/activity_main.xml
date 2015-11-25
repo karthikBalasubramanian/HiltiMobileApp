@@ -124,9 +124,10 @@
             </LinearLayout>
 
             <!-- cheat code: negative margin -->
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="175dp"
+                android:layout_height="175dp"
                 android:src="@drawable/user_image"
                 android:layout_centerHorizontal="true"
                 android:layout_above="@+id/informations_container"

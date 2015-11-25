@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.Tags;
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.UrlEndpoints;
 import quiz.mobile.hiliti.com.hiltimobileapp.json.Endpoints;
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         String userEmail = sharedPreferences.getString(Tags.EMAIL,"Email Null");
         String userName = sharedPreferences.getString(Tags.USER_NAME,"Username null");
         String displayImageUrl = sharedPreferences.getString(Tags.PROFILE_PIC, Endpoints.getImageFromServer(UrlEndpoints.DEFAULT_IMAGE_URL));
+        String department = sharedPreferences.getString(Tags.DEPARTMENT,"Department null");
+        String totalScore = sharedPreferences.getString(Tags.TOTAL_SCORE, "0 null");
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View navHeader = LayoutInflater.from(this).inflate(R.layout.drawer_header, null);
         TextView userView = ((TextView) navHeader.findViewById(R.id.userNameMain));
@@ -67,6 +71,16 @@ public class MainActivity extends AppCompatActivity {
         //imageView.setImageResource(R.drawable.profile_pic);
         loadImages(displayImageUrl, imageView);
         navigationView.addHeaderView(navHeader);
+
+        //Populate the user profile screen
+        CircleImageView displayPic = (CircleImageView) findViewById(R.id.profile_pic);
+        loadImages(displayImageUrl, displayPic);
+        ((TextView)findViewById(R.id.p_username)).setText(userName);
+        ((TextView)findViewById(R.id.p_email)).setText(userEmail);
+        ((TextView)findViewById(R.id.p_department)).setText(department);
+        ((TextView)findViewById(R.id.p_score_value)).setText(totalScore);
+
+
         Log.m(navigationView.getMenu().getItem(0).getTitle().toString());
     }
 

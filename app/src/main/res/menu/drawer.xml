@@ -7,11 +7,6 @@
         android:title="@string/take_quiz"/>
 
     <item
-        android:id="@+id/create_question"
-        android:icon="@drawable/question"
-        android:title="@string/create_question"/>
-
-    <item
         android:id="@+id/view_score"
         android:icon="@drawable/leaderboard"
         android:title="@string/view_scores"/>
@@ -20,4 +15,9 @@
         android:id="@+id/train_yourself"
         android:icon="@drawable/training"
         android:title="@string/train_yourself"/>
+
+    <item
+        android:id="@+id/create_question"
+        android:icon="@drawable/question"
+        android:title="@string/logout"/>
 </menu>

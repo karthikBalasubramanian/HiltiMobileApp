@@ -32,6 +32,107 @@
             android:id="@+id/toolbar"
             layout="@layout/activity_toolbar" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/hilti_wall">
+
+            <ImageView
+                android:id="@+id/header_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:background="#0000"
+                />
+
+            <LinearLayout
+                android:id="@+id/informations_container"
+                android:background="@drawable/whitelayout_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/header_imageview"
+                android:gravity="center"
+                android:paddingTop="32dp"
+                android:paddingBottom="10dp">
+
+
+                <TextView
+                    android:id="@+id/p_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User Name"
+                    android:textStyle="bold"
+                    android:textSize="23dp"
+                    android:textColor="#F00000"/>
+
+                <TextView
+                    android:id="@+id/p_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="#F00000"
+                    android:textSize="20dp"
+                    android:text="E-mail@email.com" />
+
+                <TextView
+                    android:id="@+id/p_department"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#F00000"
+                    android:textSize="20dp"
+                    android:text="Department" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:id="@+id/p_score_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:text="Total Score: "
+                        android:textStyle="bold"
+                        android:textSize="17dp" />
+
+                    <TextView
+                        android:id="@+id/p_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:text="999"
+                        android:textStyle="bold"
+                        android:textSize="23dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/informations_container"
+                android:gravity="center_horizontal">
+
+            </LinearLayout>
+
+            <!-- cheat code: negative margin -->
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/user_image"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/informations_container"
+                android:layout_marginBottom="-16dp" />
+
+        </RelativeLayout>
+
 
     </FrameLayout>
     <android.support.design.widget.NavigationView

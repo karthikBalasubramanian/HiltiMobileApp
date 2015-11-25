@@ -16,6 +16,7 @@
 
 package quiz.mobile.hiliti.com.hiltimobileapp.adapter;
 
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -73,14 +74,24 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Log.m("inside onBindViewHolder");
-        Question item = items.get(position); //get viewholder position from the list of view holders
+        Question item = items.get(position);
+         //get viewholder position from the list of view holders
         Log.m("item text" + item.getText());
+       // holder.text.setText(item.getText());
+
         holder.text.setText(item.getText());
+        if(item.getCorrectAns().equalsIgnoreCase(item.getAnswerByUser())) {
+            //holder.ImageView.setImageUrl(item.getImageRes(), mImageLoader);
 
-        //holder.ImageView.setImageUrl(item.getImageRes(), mImageLoader);
+            holder.text.setBackgroundColor(0xff00ff00);
+        }
+        else
+        {
 
+            holder.text.setBackgroundColor(0xffff0000);
+        }
+            holder.itemView.setTag(item);
 
-        holder.itemView.setTag(item);
     }
 
     @Override

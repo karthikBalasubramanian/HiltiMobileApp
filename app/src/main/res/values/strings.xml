@@ -13,7 +13,7 @@
     <string name="tool_training_application">Applications</string>
     <string name="hilti_user_email_prompt">user@hilti.com</string>
     <string name="hilti_user_password">password</string>
-    <string name="title_activity_question_display">QuestionDisplayActivity</string>
+    <string name="title_activity_question_display">QUIZ</string>
     <string name="title_activity_result">ResultActivity</string>
     <string name="title_activity_take_quiz_options">TakeQuizOptions</string>
     <string-array name="spinnerNumberOfQues">
@@ -31,5 +31,5 @@
     </string-array>
     <string name="title_activity_create_question">CreateQuestionActivity</string>
     <string name="logout">Logout</string>
-    <string name="title_activity_leaderboard">Leaderboard</string>
+    <string name="title_activity_leaderboard">LEADERBOARD</string>
 </resources>

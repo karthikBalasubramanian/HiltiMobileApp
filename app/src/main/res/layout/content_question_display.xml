@@ -2,17 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_question_display"
+    android:background="@drawable/hilti_wall"
     android:orientation="vertical"
-    tools:context="quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity">
-
-
-
+    tools:context="quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity"
+    android:gravity="center_vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,15 +19,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:minHeight="150dp"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_margin="15dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/questionText"
                 android:gravity="center"
-                android:layout_gravity="center"/>
+                android:background="@drawable/whitelayout_bg"
+                android:layout_gravity="center"
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
             <android.widget.Space
                 android:layout_width="match_parent"
@@ -41,30 +42,33 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:orientation="vertical">
+                android:layout_margin="15dp"
+                android:background="@drawable/whitelayout_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
 
                 <RadioButton android:id="@+id/buttonOptionA"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
-                    android:background="@drawable/background_border_red"
-                    android:textColorHighlight="@color/accent"
+                    android:textColorHighlight="@color/primary"
                     android:layout_marginBottom="20dp"
-                    android:buttonTint="@color/primary" />
-
-
+                    android:buttonTint="@color/primary"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    />
 
                 <RadioButton android:id="@+id/buttonOptionB"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
-                    android:background="@drawable/background_border_red"
-                    android:textColorHighlight="@color/accent"
+                    android:textColorHighlight="@color/primary"
                     android:layout_marginBottom="20dp"
                     android:buttonTint="@color/primary"
-                    />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
 
                 <RadioButton android:id="@+id/buttonOptionC"
@@ -72,10 +76,11 @@
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
-                    android:background="@drawable/background_border_red"
-                    android:textColorHighlight="@color/accent"
+                    android:textColorHighlight="@color/primary"
                     android:layout_marginBottom="20dp"
-                    android:buttonTint="@color/primary"/>
+                    android:buttonTint="@color/primary"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
 
                 <RadioButton android:id="@+id/buttonOptionD"
@@ -83,9 +88,10 @@
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
                     android:textSize="14sp"
-                    android:background="@drawable/background_border_red"
-                    android:textColorHighlight="@color/accent"
-                    android:buttonTint="@color/primary"/>
+                    android:textColorHighlight="@color/primary"
+                    android:buttonTint="@color/primary"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
             </RadioGroup>
 
 
@@ -99,16 +105,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Submit Quiz"
-                android:onClick="submitQuiz"/>
-
-
-
-
-
-
-
-
-
+                android:onClick="submitQuiz"
+                android:background="#f44437"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:padding="10dp"/>
 
         </LinearLayout>
 

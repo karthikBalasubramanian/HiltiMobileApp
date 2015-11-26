@@ -49,9 +49,6 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
 
 
     private ArrayList<Question> items = new ArrayList<Question>();
-    SharedPreferences sharedPreferences= HiltiApplication.getAppContext().getSharedPreferences(Tags.PREF_NAME, Context.MODE_PRIVATE);
-    //private OnItemClickListener onItemClickListener;
-
     VolleySingleton volleySingleton;
     RequestQueue mRequestQueue;
 
@@ -64,36 +61,19 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
         this.items = viewModels;
         notifyDataSetChanged();
     }
-    /*public RecyclerViewAdapter(List<ViewModel> items) {
-        this.items = items;
-    }*/
-
-    /*public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }*/
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.result_recycler, parent, false);
-        //v.setOnClickListener(this);  // start listening to the view
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
-
     }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Log.m("inside onBindViewHolder");
         Question item = items.get(position);
-         //get viewholder position from the list of view holders
         Log.m("item text" + item.getText());
-       // holder.text.setText(item.getText());
-
         holder.text.setText(item.getText());
         if(item.getCorrectAns().equalsIgnoreCase(item.getAnswerByUser())) {
-            //holder.ImageView.setImageUrl(item.getImageRes(), mImageLoader);
-            sendCorrectQuestions(item.getQid());
             holder.text.setBackgroundColor(0xFF68FF57);
         }
         else
@@ -108,41 +88,14 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
     public int getItemCount() {
         return items.size();
     }
-
-   /* @Override
-    public void onClick(final View v) {
-        // Give some time to the ripple to finish the effect
-        if (onItemClickListener != null) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Question Qpojo =(Question) v.getTag();
-                    onItemClickListener.onItemClick(v, (Question) v.getTag());
-                }
-            }, 200);
-        }
-    }*/
-
     protected static class ViewHolder extends RecyclerView.ViewHolder {
-        //public ImageView ImageView;
         public TextView text;
-
         public ViewHolder(View itemView) {
             super(itemView);
-            //ImageView = (ImageView) itemView.findViewById(R.id.networkImageView);
             text = (TextView) itemView.findViewById(R.id.qtext);
         }
     }
 
-    /*public interface OnItemClickListener {
 
-        void onItemClick(View view, Question Qpojo);
 
-    }*/
-
-    public void sendCorrectQuestions(int qid){
-        String url = UrlEndpoints.API_SERVER+UrlEndpoints.ANSWERED_CORRECT_URL+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.Q_ID_PARAM_ANSWERED_+qid+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,0);
-        Log.m("url is "+url);
-//        Requestor.answeredCorrectStringRequest(mRequestQueue, url,Tags.RESULT_TAG);
-    }
 }

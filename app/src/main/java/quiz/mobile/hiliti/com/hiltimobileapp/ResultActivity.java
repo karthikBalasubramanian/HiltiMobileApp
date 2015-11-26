@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -34,12 +35,7 @@ public class ResultActivity extends AppCompatActivity implements AnsweredCorrect
     private View content;
     private RecyclerView recyclerView;
     private RecyclerViewAdapterResult recyclerViewAdapter;
-    private ArrayList<Question> jsonResponse = new ArrayList<Question>();
-    private ArrayList<ViewModel> viewModels = new ArrayList<ViewModel>();
     SharedPreferences sharedPreferences=HiltiApplication.getAppContext().getSharedPreferences(Tags.PREF_NAME, MODE_PRIVATE);
-    ArrayList<String> answeredCorrectsUrls = new ArrayList<String>();
-    ViewModel viewModel = null;
-    Question Qpojo = null;
     Button btnExit;
 
     @Override
@@ -50,17 +46,21 @@ public class ResultActivity extends AppCompatActivity implements AnsweredCorrect
         initRecyclerView();
         content = findViewById(R.id.resultview);
         ArrayList<Question> question = (ArrayList<Question>)getIntent().getSerializableExtra("QuestionList");
-      //  ArrayList<String> answers=(ArrayList<String>)getIntent().getSerializableExtra("AnswerList");
         recyclerViewAdapter.setViewModels(question);
-        calculateScore(question);
-        collectAllRightAnswers(question);
+
         if(question.size()>0) {
-            new ResultAsyncTask(this).execute(answeredCorrectsUrls.toArray(new URL[answeredCorrectsUrls.size()])); // pass URL ARRAY
+            try {
+                URL url = collectAllRightAnswers(question);
+                URL updateScoreUrl = updateUserURL();
+                new ResultAsyncTask(this).execute(url,updateScoreUrl); // pass URL ARRAY
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
        // / if (jsonResponse.isEmpty()) new QuestionAsyncTask(this).execute();
 
         btnExit = (Button) findViewById(R.id.btn_exitLeaderboard);
-
+        Toast.makeText(this,"Test score is "+calculateScore(question),Toast.LENGTH_LONG).show();
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +84,7 @@ public class ResultActivity extends AppCompatActivity implements AnsweredCorrect
         Log.m("count of adapters" + recyclerViewAdapter.getItemCount());
     }
 
-    public void calculateScore(ArrayList<Question> questions)
+    public String calculateScore(ArrayList<Question> questions)
     {
         int score=0;
         for(Question q : questions) {
@@ -94,27 +94,29 @@ public class ResultActivity extends AppCompatActivity implements AnsweredCorrect
                 score =score + q.getDifficulty();
             }
         }
-
-        String qscore=String.valueOf(score);
-
+        Log.m("current score is "+sharedPreferences.getInt(Tags.TOTAL_SCORE,0));
+        sharedPreferences.edit().putInt(Tags.TOTAL_SCORE, sharedPreferences.getInt(Tags.TOTAL_SCORE, 0) + score);
+        sharedPreferences.edit().commit();
+        Log.m("updated score is "+ sharedPreferences.getInt(Tags.TOTAL_SCORE, 0));
+        return String.valueOf(score);
     }
-    public void collectAllRightAnswers(ArrayList<Question> questions){
-        AnsweredCorrect answeredCorrect = null;
+    public URL collectAllRightAnswers(ArrayList<Question> questions) throws MalformedURLException {
         Question question = null;
-        String url = null;
+        ArrayList<String> questionNumbers = new ArrayList<String>();
         for (int i=0; i<questions.size();i++){
             question = questions.get(i);
             if(question.getAnswerByUser().equalsIgnoreCase(question.getCorrectAns())){
-
-                url = UrlEndpoints.API_SERVER+UrlEndpoints.ANSWERED_CORRECT_URL+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.Q_ID_PARAM_ANSWERED_+question.getQid()+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,0);
-                answeredCorrectsUrls.add(url);
+                questionNumbers.add(String.valueOf(question.getQid()));
             }
         }
 
-
-
+        String urlAsString = UrlEndpoints.API_SERVER+UrlEndpoints.URL_UPDATE_ALL_ANSWERS+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,4)+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.Q_ID_PARAM_ANSWERED_+android.text.TextUtils.join(",", questionNumbers);;
+        Log.m("Url is"+urlAsString);
+        return new URL(urlAsString);
     }
-
+    public URL updateUserURL() throws MalformedURLException {
+        return new URL(new String("URL"));
+    }
     private void initToolbar() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.resultToolbar);
         setSupportActionBar(toolbar);

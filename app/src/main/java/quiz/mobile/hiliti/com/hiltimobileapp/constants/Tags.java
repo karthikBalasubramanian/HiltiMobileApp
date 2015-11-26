@@ -1,5 +1,6 @@
 package quiz.mobile.hiliti.com.hiltimobileapp.constants;
 
+import quiz.mobile.hiliti.com.hiltimobileapp.Leaderboard;
 import quiz.mobile.hiliti.com.hiltimobileapp.QuestionDisplayActivity;
 import quiz.mobile.hiliti.com.hiltimobileapp.TakeQuizOptions;
 import quiz.mobile.hiliti.com.hiltimobileapp.TrainingActivity;
@@ -26,6 +27,7 @@ public class Tags {
     public static String QUESTION_TAG= QuestionDisplayActivity.class.getSimpleName();
     public static String RESULT_TAG = RecyclerViewAdapterResult.class.getSimpleName();
     public static String TOPIC_TAG= TakeQuizOptions.class.getSimpleName();
+    public static String LEADER_TAG= Leaderboard.class.getSimpleName();
     public static final String NO_OF_QUESTION = "NoOfQuestions";
     public static final String TOPIC_LIST = "topicName";
     public static final String DIFFICULTY_LEVELS = "difficulty";

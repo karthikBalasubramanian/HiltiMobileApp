@@ -9,10 +9,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.Keys;
+import quiz.mobile.hiliti.com.hiltimobileapp.constants.UrlEndpoints;
 import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Topic;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.TrainingPojo;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.UserProfile;
 
 /**
  * Created by vaishu on 03-11-2015.
@@ -83,5 +85,30 @@ public class Parser {
             Log.m("inside json exception");
         }
         return topicList;
+    }
+
+    public static ArrayList<UserProfile> getLeader(JSONArray arrayResponse){
+        ArrayList<UserProfile> leaderList = new ArrayList<UserProfile>();
+        UserProfile leaderPojo = null;
+        Log.m("Responses: "+arrayResponse.toString());
+        Log.m("\nLength: "+arrayResponse.length());
+        try{ for(int i=0; i<arrayResponse.length();i++){
+            JSONObject newJsonObject = arrayResponse.getJSONObject(i);
+            leaderPojo = new UserProfile();
+
+            leaderPojo.setEmpId(newJsonObject.getInt("empid"));
+            leaderPojo.setDisplayPic(Endpoints.getImageFromServer(newJsonObject.getString("displayPic")));
+            leaderPojo.setFirstName(newJsonObject.getString("firstName"));
+            leaderPojo.setLastName(newJsonObject.getString("lastName"));
+            leaderPojo.setDepartment(newJsonObject.getString("department"));
+            leaderPojo.setEmail(newJsonObject.getString("email"));
+            leaderPojo.setAsOfDate(newJsonObject.getString("asOfDate"));
+            leaderPojo.setTotalScore(newJsonObject.getInt("totalScore"));
+
+            leaderList.add(leaderPojo);
+        }}catch (JSONException e) {
+            Log.m("inside json exception");
+        }
+        return leaderList;
     }
 }

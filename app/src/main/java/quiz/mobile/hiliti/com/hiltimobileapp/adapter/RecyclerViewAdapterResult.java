@@ -143,6 +143,6 @@ public class RecyclerViewAdapterResult extends RecyclerView.Adapter<RecyclerView
     public void sendCorrectQuestions(int qid){
         String url = UrlEndpoints.API_SERVER+UrlEndpoints.ANSWERED_CORRECT_URL+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.Q_ID_PARAM_ANSWERED_+qid+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,0);
         Log.m("url is "+url);
-        Requestor.answeredCorrectStringRequest(mRequestQueue, url,Tags.RESULT_TAG);
+//        Requestor.answeredCorrectStringRequest(mRequestQueue, url,Tags.RESULT_TAG);
     }
 }

@@ -134,4 +134,23 @@ public class Requestor {
 
         }
 
+    public static JSONArray requestLeaderJSON(RequestQueue requestQueue, String url, String trainingTag) {
+        JSONArray jsonArray = new JSONArray();
+        RequestFuture<JSONArray> requestFuture = RequestFuture.newFuture();
+
+        JsonArrayRequest request = new JsonArrayRequest(url, requestFuture, requestFuture);
+        request.setTag(trainingTag);
+        requestQueue.add(request);
+        try {
+            jsonArray = requestFuture.get(10000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            Log.m(e + "");
+        } catch (ExecutionException e) {
+            Log.m(e + "");
+        } catch (TimeoutException e) {
+            Log.m(e + "");
+        }
+        return jsonArray;
+    }
+
 }

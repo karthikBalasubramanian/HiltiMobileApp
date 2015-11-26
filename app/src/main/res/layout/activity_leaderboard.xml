@@ -30,7 +30,7 @@
         android:textStyle="bold|italic"
         android:padding="1mm" />
 
-    <ListView
+    <quiz.mobile.hiliti.com.hiltimobileapp.widget.GridRecyclerView
         android:id="@+id/scores"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

@@ -70,6 +70,8 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
         setRecyclerAdapter(recyclerView);
     }
 
+
+
     private void setRecyclerAdapter(RecyclerView recyclerView) {
         recyclerViewAdapter = new RecyclerViewAdapterResult();
         //recyclerViewAdapter.setOnItemClickListener(this);

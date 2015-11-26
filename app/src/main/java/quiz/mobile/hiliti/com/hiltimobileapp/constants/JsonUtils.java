@@ -13,6 +13,7 @@ import quiz.mobile.hiliti.com.hiltimobileapp.json.Requestor;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Topic;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.TrainingPojo;
+import quiz.mobile.hiliti.com.hiltimobileapp.pojo.UserProfile;
 
 /**
  * Created by vaishu on 04-11-2015.
@@ -34,6 +35,12 @@ public class JsonUtils {
         JSONArray jsonArray = Requestor.requestTrainingJSON(requestQueue,UrlEndpoints.URL_TOPICS,Tags.TOPIC_TAG);
         ArrayList<Topic> topicPojos = Parser.getTopic(jsonArray);
         return topicPojos;
+    }
+
+    public static ArrayList<UserProfile> getLeaders(RequestQueue requestQueue){
+        JSONArray jsonArray = Requestor.requestLeaderJSON(requestQueue, UrlEndpoints.URL_LEADERS, Tags.LEADER_TAG);
+        ArrayList<UserProfile> leaderPojos = Parser.getLeader(jsonArray);
+        return leaderPojos;
     }
 
 

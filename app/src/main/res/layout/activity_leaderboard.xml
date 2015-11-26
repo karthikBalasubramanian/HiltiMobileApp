@@ -36,7 +36,7 @@
         android:layout_height="fill_parent"
         android:layout_below="@+id/title"
         android:layout_above="@+id/btn_exitLeaderboard"
-        android:background="@drawable/blacklayout_bg"
+        android:background="@drawable/whitelayout_bg"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

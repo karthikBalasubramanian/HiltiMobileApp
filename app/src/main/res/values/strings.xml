@@ -32,4 +32,5 @@
     <string name="title_activity_create_question">CreateQuestionActivity</string>
     <string name="logout">Logout</string>
     <string name="title_activity_leaderboard">LEADERBOARD</string>
+    <string name="quiz_results">RESULTS</string>
 </resources>

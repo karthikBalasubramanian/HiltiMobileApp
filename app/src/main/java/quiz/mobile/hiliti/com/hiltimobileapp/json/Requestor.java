@@ -20,6 +20,7 @@ import com.google.gson.JsonArray;
 import org.json.JSONArray;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,49 +91,26 @@ public class Requestor {
         return jsonArray;
     }
 
-    public static void answeredCorrectStringRequest(final ArrayList<AnsweredCorrect>correctAnswers,String answeredHistoryTag) {
-        Log.m("answeredCorrectcalled");
-            String url = UrlEndpoints.API_SERVER+UrlEndpoints.URL_UPDATE_ALL_ANSWERS;
+    public static String answeredCorrectStringRequest(RequestQueue requestQueue,URL url,String answeredHistoryTag) {
+            String response = null;
+            Log.m("URL is "+ url.toString());
+            RequestFuture<String> requestFuture = RequestFuture.newFuture();
+            StringRequest stringRequest = new StringRequest(url.toString(), requestFuture,requestFuture);
+            stringRequest.setTag(answeredHistoryTag);
+            requestQueue.add(stringRequest);
+            try{
+                response = requestFuture.get(3000,TimeUnit.MILLISECONDS);
+                Log.m("response is  "+response);
+            } catch (InterruptedException e) {
+               Log.m("interruped exception");
+            } catch (ExecutionException e) {
+               Log.m("execution exception");
+            } catch (TimeoutException e) {
+               Log.m("timeout exception");
+            }
 
-            //RequestFuture<String> requestFuture = RequestFuture.newFuture();
-            StringRequest strReq = new StringRequest(Request.Method.POST,
-                    url, new Response.Listener<String>() {
-
-                @Override
-                public void onResponse(String response) {
-                    Log.m("inside response");
-                    if (response != null) {
-                        JSONArray jsonAraay = new JSONArray(correctAnswers);
-                        Log.m("json array is "+ jsonAraay.toString());
-                        Log.m("response for success " + response.toString());
-                    }
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Gson gson = new GsonBuilder().create();
-                    JsonArray jsonArray = gson.toJsonTree(correctAnswers).getAsJsonArray();
-                    Log.m(jsonArray.toString());
-                    Log.m("answer_correct update error" + error.getMessage().toString());
-                }
-            }){
-
-                @Override
-                protected Map<String, String> getParams() {
-                    // Posting parameters to login url
-                    Map<String, String> params = new HashMap<String, String>();
-                    JSONArray jsonAraay = new JSONArray(correctAnswers);
-                    Log.m("json array is " + jsonAraay.toString());
-                    params.put("allAnswers", jsonAraay.toString());
-                    return params;
-                }
-
-            };
-            strReq.setTag(answeredHistoryTag);
-            VolleySingleton.getvSingletonInstance().getmRequestQueue().add(strReq);
-
-        }
+            return response;
+    }
 
     public static JSONArray requestLeaderJSON(RequestQueue requestQueue, String url, String trainingTag) {
         JSONArray jsonArray = new JSONArray();

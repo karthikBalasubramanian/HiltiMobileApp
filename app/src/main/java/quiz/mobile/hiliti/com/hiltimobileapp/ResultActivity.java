@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.adapter.RecyclerViewAdapterResult;
+import quiz.mobile.hiliti.com.hiltimobileapp.callbacks.AnsweredCorrectCallBackListener;
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.Tags;
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.UrlEndpoints;
 import quiz.mobile.hiliti.com.hiltimobileapp.json.Requestor;
@@ -22,10 +24,11 @@ import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
 import quiz.mobile.hiliti.com.hiltimobileapp.model.ViewModel;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.AnsweredCorrect;
 import quiz.mobile.hiliti.com.hiltimobileapp.pojo.Question;
+import quiz.mobile.hiliti.com.hiltimobileapp.task.ResultAsyncTask;
+import quiz.mobile.hiliti.com.hiltimobileapp.task.TrainingAsyncTask;
 
 
-
-public class ResultActivity extends AppCompatActivity /*implements RecyclerViewAdapterResult.OnItemClickListener*/ {
+public class ResultActivity extends AppCompatActivity implements AnsweredCorrectCallBackListener/*implements RecyclerViewAdapterResult.OnItemClickListener*/ {
 
 
     private View content;
@@ -34,7 +37,7 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
     private ArrayList<Question> jsonResponse = new ArrayList<Question>();
     private ArrayList<ViewModel> viewModels = new ArrayList<ViewModel>();
     SharedPreferences sharedPreferences=HiltiApplication.getAppContext().getSharedPreferences(Tags.PREF_NAME, MODE_PRIVATE);
-    ArrayList<AnsweredCorrect> answeredCorrects = new ArrayList<AnsweredCorrect>();
+    ArrayList<String> answeredCorrectsUrls = new ArrayList<String>();
     ViewModel viewModel = null;
     Question Qpojo = null;
     Button btnExit;
@@ -51,7 +54,9 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
         recyclerViewAdapter.setViewModels(question);
         calculateScore(question);
         collectAllRightAnswers(question);
-        Requestor.answeredCorrectStringRequest(answeredCorrects,Tags.RESULT_TAG);
+        if(question.size()>0) {
+            new ResultAsyncTask(this).execute(answeredCorrectsUrls.toArray(new URL[answeredCorrectsUrls.size()])); // pass URL ARRAY
+        }
        // / if (jsonResponse.isEmpty()) new QuestionAsyncTask(this).execute();
 
         btnExit = (Button) findViewById(R.id.btn_exitLeaderboard);
@@ -79,21 +84,6 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
         Log.m("count of adapters" + recyclerViewAdapter.getItemCount());
     }
 
-
-
-   /* @Override
-    public void onItemClick(View view, Question Qpojo) {
-      //  ToolTrainingActivity.navigate(this, view.findViewById(R.id.networkImageView), trainingPojo);
-        *//*Snackbar.make(ontent,trainingPojo.getTitle()+ " pressed",Snackbar.LENGTH_LONG).show();*//*
-        Toast.makeText(getApplicationContext(),"seected", Toast.LENGTH_LONG).show();
-    }*/
-
-    //@Override
-   /* public void getItems() {
-        Bundle question=getIntent().getExtras("QuestionList");
-        jsonResponse = getIntent().getExtras("QuestionList");
-        recyclerViewAdapter.setViewModels(jsonResponse);
-    }*/
     public void calculateScore(ArrayList<Question> questions)
     {
         int score=0;
@@ -106,22 +96,22 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
         }
 
         String qscore=String.valueOf(score);
-    //    Toast.makeText(this,qscore,Toast.LENGTH_LONG).show();
+
     }
     public void collectAllRightAnswers(ArrayList<Question> questions){
         AnsweredCorrect answeredCorrect = null;
         Question question = null;
-        //String url = null;
+        String url = null;
         for (int i=0; i<questions.size();i++){
             question = questions.get(i);
             if(question.getAnswerByUser().equalsIgnoreCase(question.getCorrectAns())){
-                answeredCorrect = new AnsweredCorrect();
-                answeredCorrect.setEmpid(sharedPreferences.getInt(Tags.EMP_ID,0));
-                answeredCorrect.setQid(question.getQid());
-                //url = UrlEndpoints.API_SERVER+UrlEndpoints.ANSWERED_CORRECT_URL+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.Q_ID_PARAM_ANSWERED_+question.getQid()+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,0);
-                answeredCorrects.add(answeredCorrect);
+
+                url = UrlEndpoints.API_SERVER+UrlEndpoints.ANSWERED_CORRECT_URL+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.Q_ID_PARAM_ANSWERED_+question.getQid()+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,0);
+                answeredCorrectsUrls.add(url);
             }
         }
+
+
 
     }
 
@@ -142,5 +132,12 @@ public class ResultActivity extends AppCompatActivity /*implements RecyclerViewA
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void getAnsweredCorrectUpdateResponses(ArrayList<String> answeredCorrectResponse) {
+        for (int i=0; i< answeredCorrectResponse.size(); i++){
+            Log.m("answeredCorrect response"+ answeredCorrectResponse.get(i));
+        }
     }
 }

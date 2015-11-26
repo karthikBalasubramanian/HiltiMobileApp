@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import com.android.volley.RequestQueue;
 
 import java.util.ArrayList;
+
+import quiz.mobile.hiliti.com.hiltimobileapp.ResultActivity;
 import quiz.mobile.hiliti.com.hiltimobileapp.callbacks.TrainingMaterialsCallBackListener;
 import quiz.mobile.hiliti.com.hiltimobileapp.constants.JsonUtils;
 import quiz.mobile.hiliti.com.hiltimobileapp.logging.Log;
@@ -24,6 +26,7 @@ public class TrainingAsyncTask extends AsyncTask<Void,Void,ArrayList<TrainingPoj
         volleySingleton = VolleySingleton.getvSingletonInstance();
         mRequestQueue = volleySingleton.getmRequestQueue();
     }
+
     @Override
     protected ArrayList<TrainingPojo> doInBackground(Void... params) {
         ArrayList<TrainingPojo> trainingPojos = JsonUtils.getTrainingMaterials(mRequestQueue);

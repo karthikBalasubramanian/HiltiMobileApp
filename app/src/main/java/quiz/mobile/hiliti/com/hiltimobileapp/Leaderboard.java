@@ -38,8 +38,6 @@ Button btnExit;
 
         if (leaderList.isEmpty()) new LeaderboardAsyncTask(this).execute();
 
-
-
         btnExit = (Button) findViewById(R.id.btn_exitLeaderboard);
 
         btnExit.setOnClickListener(new View.OnClickListener() {
@@ -48,13 +46,6 @@ Button btnExit;
                 finish();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_leaderboard, menu);
-        return true;
     }
 
 

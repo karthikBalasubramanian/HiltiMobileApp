@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/spacing_xsmall">
 
-        <quiz.mobile.hiliti.com.hiltimobileapp.widget.SquareImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/leader_networkImageView"
             android:layout_width="200dp"
             android:layout_height="match_parent"

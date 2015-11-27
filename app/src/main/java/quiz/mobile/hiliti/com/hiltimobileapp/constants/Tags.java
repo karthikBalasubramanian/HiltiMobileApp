@@ -12,12 +12,16 @@ import quiz.mobile.hiliti.com.hiltimobileapp.adapter.RecyclerViewAdapterResult;
 public class Tags {
 
     public static final String PREF_NAME = "HiltiUserLogin";
-    public static final String USER_NAME = "LoggedUserName";
+    public static final String FIRST_NAME = "LoggedUserName";
     public static final String EMAIL = "LoggedUserEmail";
     public static final String PROFILE_PIC = "LoggedUserPic";
     public static final String EMP_ID = "empid";
     public static final String DEPARTMENT = "department";
     public static final String TOTAL_SCORE = "totalScore";
+    public static final String LAST_NAME ="UserLastName";
+    public static final String MIDDLE_NAME ="UserMiddleName";
+    public static final String AS_OF_DATE="asOfDate";
+    public static final String PASSWORD = "password";
 
 
 

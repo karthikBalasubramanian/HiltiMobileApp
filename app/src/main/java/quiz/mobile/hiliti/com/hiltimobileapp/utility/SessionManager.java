@@ -36,14 +36,18 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
-    public void setUserCred(String username, String email, String profilePic, int empid, String department, int totalScore){
+    public void setUserCred(String firstName, String email, String profilePic, int empid, String department, int totalScore,String lastName, String middleName,String asOfDate,String password){
 
-        editor.putString(Tags.USER_NAME,username);
+        editor.putString(Tags.FIRST_NAME,firstName);
         editor.putString(Tags.EMAIL,email);
-        editor.putString(Tags.PROFILE_PIC, Endpoints.getImageFromServer(profilePic));
+        editor.putString(Tags.PROFILE_PIC, profilePic);
         editor.putInt(Tags.EMP_ID,empid);
         editor.putString(Tags.DEPARTMENT,department);
-        editor.putString(Tags.TOTAL_SCORE,Integer.toString(totalScore));
+        editor.putInt(Tags.TOTAL_SCORE, totalScore);
+        editor.putString(Tags.LAST_NAME,lastName);
+        editor.putString(Tags.MIDDLE_NAME,middleName);
+        editor.putString(Tags.AS_OF_DATE,asOfDate);
+        editor.putString(Tags.PASSWORD,password);
 
         editor.commit();
         Log.d(TAG,"user details saved");

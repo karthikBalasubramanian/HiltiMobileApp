@@ -31,7 +31,7 @@ public class UrlEndpoints {
         public static final String PARAM_USER_PROF_UP_LAST_NAME = "lastName=";
         public static final String PARAM_USER_PROF_UP_MIDDLE_NAME = "middleName=";
         public static final String PARAM_USER_PROF_UP_DEPARTMENT = "department=";
-        public static final String PARAM_USER_PROF_UP_AS_OF_DATE = "asOfDate=null";
+        public static final String PARAM_USER_PROF_UP_AS_OF_DATE = "asOfDate=";
         public static final String PARAM_USER_PROF_UP_EMAIL = "email=";
         public static final String PARAM_USER_PROF_UP_TOTAL_SCORE = "totalScore=";
 

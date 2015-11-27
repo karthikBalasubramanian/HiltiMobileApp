@@ -51,15 +51,9 @@ public class MainActivity extends AppCompatActivity {
         initToolbar();
         setupDrawerLayout();
         content = findViewById(R.id.content);
-
-        //
-
-        //change to network URL
-        String userEmail = sharedPreferences.getString(Tags.EMAIL,"Email Null");
-        String userName = sharedPreferences.getString(Tags.USER_NAME,"Username null");
-        String displayImageUrl = sharedPreferences.getString(Tags.PROFILE_PIC, Endpoints.getImageFromServer(UrlEndpoints.DEFAULT_IMAGE_URL));
-        String department = sharedPreferences.getString(Tags.DEPARTMENT,"Department null");
-        String totalScore = sharedPreferences.getString(Tags.TOTAL_SCORE, "0 null");
+        String userEmail = sharedPreferences.getString(Tags.EMAIL, "Email Null");
+        String userName = sharedPreferences.getString(Tags.FIRST_NAME,"Username null");
+        String displayImageUrl = Endpoints.getImageFromServer(sharedPreferences.getString(Tags.PROFILE_PIC, UrlEndpoints.DEFAULT_IMAGE_URL));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View navHeader = LayoutInflater.from(this).inflate(R.layout.drawer_header, null);
@@ -73,18 +67,23 @@ public class MainActivity extends AppCompatActivity {
         navigationView.addHeaderView(navHeader);
 
         //Populate the user profile screen
-        CircleImageView displayPic = (CircleImageView) findViewById(R.id.profile_pic);
-        loadImages(displayImageUrl, displayPic);
-        ((TextView)findViewById(R.id.p_username)).setText(userName);
-        ((TextView)findViewById(R.id.p_email)).setText(userEmail);
-        ((TextView)findViewById(R.id.p_department)).setText(department);
-        ((TextView)findViewById(R.id.p_score_value)).setText(totalScore);
+
+
 
 
         Log.m(navigationView.getMenu().getItem(0).getTitle().toString());
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        CircleImageView displayPic = (CircleImageView) findViewById(R.id.profile_pic);
+        loadImages(Endpoints.getImageFromServer(sharedPreferences.getString(Tags.PROFILE_PIC, UrlEndpoints.DEFAULT_IMAGE_URL)), displayPic);
+        ((TextView)findViewById(R.id.p_username)).setText(sharedPreferences.getString(Tags.FIRST_NAME,"Username null"));
+        ((TextView)findViewById(R.id.p_email)).setText(sharedPreferences.getString(Tags.EMAIL,"Email Null"));
+        ((TextView)findViewById(R.id.p_department)).setText(sharedPreferences.getString(Tags.DEPARTMENT,"Department null"));
+        ((TextView)findViewById(R.id.p_score_value)).setText(String.valueOf(sharedPreferences.getInt(Tags.TOTAL_SCORE, 0)));
+    }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

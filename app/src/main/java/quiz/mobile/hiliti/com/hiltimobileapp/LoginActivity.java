@@ -142,24 +142,13 @@ public class LoginActivity extends Activity {
                 if (response != null) {
                     try {
                         JSONObject jObj = new JSONObject(response);
-                        UserProfile userProfile = new UserProfile();
-
-
+                        //UserProfile userProfile = new UserProfile();
                         // user successfully logged in
                         // Create login session
                         sessionManager.setLogin(true);
                         //set profile details in shared preference
-                        sessionManager.setUserCred(jObj.getString("firstName"), jObj.getString("email"), jObj.getString("displayPic"), jObj.getInt("empid"),jObj.getString("department"),jObj.getInt("totalScore"));
+                        sessionManager.setUserCred(jObj.getString("firstName"), jObj.getString("email"), jObj.getString("displayPic"), jObj.getInt("empid"),jObj.getString("department"),jObj.getInt("totalScore"),jObj.getString("lastName"),jObj.getString("middleName"),jObj.getString("asOfDate"),jObj.getString("password"));
 
-                        userProfile.setEmpId(jObj.getInt("empid"));
-                        userProfile.setPassword(jObj.getString("password"));
-                        userProfile.setDisplayPic(Endpoints.getImageFromServer(jObj.getString("displayPic")));
-                        userProfile.setFirstName(jObj.getString("firstName"));
-                        userProfile.setLastName(jObj.getString("lastName"));
-                        userProfile.setDepartment(jObj.getString("department"));
-                        userProfile.setEmail(jObj.getString("email"));
-                        userProfile.setAsOfDate(jObj.getString("asOfDate"));
-                        userProfile.setTotalScore(jObj.getInt("totalScore"));
 
                         Intent intent = new Intent(LoginActivity.this,
                                 MainActivity.class);

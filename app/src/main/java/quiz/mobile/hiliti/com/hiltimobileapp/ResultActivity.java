@@ -12,8 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import quiz.mobile.hiliti.com.hiltimobileapp.adapter.RecyclerViewAdapterResult;
@@ -36,7 +38,8 @@ public class ResultActivity extends AppCompatActivity implements AnsweredCorrect
     private RecyclerView recyclerView;
     private RecyclerViewAdapterResult recyclerViewAdapter;
     SharedPreferences sharedPreferences=HiltiApplication.getAppContext().getSharedPreferences(Tags.PREF_NAME, MODE_PRIVATE);
-    Button btnExit;
+    Button btnExit,testScore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +50,23 @@ public class ResultActivity extends AppCompatActivity implements AnsweredCorrect
         content = findViewById(R.id.resultview);
         ArrayList<Question> question = (ArrayList<Question>)getIntent().getSerializableExtra("QuestionList");
         recyclerViewAdapter.setViewModels(question);
-
+        //calculateScore(question);
+        testScore = (Button)findViewById(R.id.btn_displayScore);
+        testScore.setText("Test Score: "+calculateScore(question));
         if(question.size()>0) {
             try {
                 URL url = collectAllRightAnswers(question);
-                URL updateScoreUrl = updateUserURL();
+                URL updateScoreUrl = new URL(updateUserURL());
                 new ResultAsyncTask(this).execute(url,updateScoreUrl); // pass URL ARRAY
             } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
        // / if (jsonResponse.isEmpty()) new QuestionAsyncTask(this).execute();
 
         btnExit = (Button) findViewById(R.id.btn_exitLeaderboard);
-        Toast.makeText(this,"Test score is "+calculateScore(question),Toast.LENGTH_LONG).show();
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,14 +98,19 @@ public class ResultActivity extends AppCompatActivity implements AnsweredCorrect
             if(q.getCorrectAns().equalsIgnoreCase(q.getAnswerByUser()))
             {
                 score =score + q.getDifficulty();
+
             }
         }
+        Log.m("final score is " + score);
+        int totalScore = sharedPreferences.getInt(Tags.TOTAL_SCORE, 0) + score;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         Log.m("current score is "+sharedPreferences.getInt(Tags.TOTAL_SCORE,0));
-        sharedPreferences.edit().putInt(Tags.TOTAL_SCORE, sharedPreferences.getInt(Tags.TOTAL_SCORE, 0) + score);
-        sharedPreferences.edit().commit();
+        editor.putInt(Tags.TOTAL_SCORE, totalScore);
+        editor.commit();
         Log.m("updated score is "+ sharedPreferences.getInt(Tags.TOTAL_SCORE, 0));
-        return String.valueOf(score);
-    }
+
+    return String.valueOf(score);
+}
     public URL collectAllRightAnswers(ArrayList<Question> questions) throws MalformedURLException {
         Question question = null;
         ArrayList<String> questionNumbers = new ArrayList<String>();
@@ -110,12 +121,26 @@ public class ResultActivity extends AppCompatActivity implements AnsweredCorrect
             }
         }
 
-        String urlAsString = UrlEndpoints.API_SERVER+UrlEndpoints.URL_UPDATE_ALL_ANSWERS+UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,4)+UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.Q_ID_PARAM_ANSWERED_+android.text.TextUtils.join(",", questionNumbers);;
+        String urlAsString = UrlEndpoints.API_SERVER+UrlEndpoints.URL_UPDATE_ALL_ANSWERS+
+                UrlEndpoints.URL_CHAR_QUESTION+UrlEndpoints.EMP_ID_PARAM_ANSWERED+sharedPreferences.getInt(Tags.EMP_ID,4)
+                +UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.Q_ID_PARAM_ANSWERED_+android.text.TextUtils.join(",", questionNumbers);;
         Log.m("Url is"+urlAsString);
         return new URL(urlAsString);
     }
-    public URL updateUserURL() throws MalformedURLException {
-        return new URL(new String("URL"));
+    public String updateUserURL() throws MalformedURLException, UnsupportedEncodingException {
+        String url =UrlEndpoints.URL_USER_PROFILE_UPDATE+UrlEndpoints.URL_CHAR_QUESTION+
+                UrlEndpoints.EMP_ID_PARAM_ANSWERED+ sharedPreferences.getInt(Tags.EMP_ID, 0)+
+                UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.PARAM_USER_PROF_UP_PASSWORD+sharedPreferences.getString(Tags.PASSWORD, "")
+                +UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.PARAM_USER_PROF_UP_DISPLAY_PIC+sharedPreferences.getString(Tags.PROFILE_PIC,"")
+                +UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.PARAM_USER_PROF_UP_FIRST_NAME+sharedPreferences.getString(Tags.FIRST_NAME,"")
+                +UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.PARAM_USER_PROF_UP_LAST_NAME+sharedPreferences.getString(Tags.LAST_NAME,"")
+                +UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.PARAM_USER_PROF_UP_MIDDLE_NAME+sharedPreferences.getString(Tags.MIDDLE_NAME,"")
+                +UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.PARAM_USER_PROF_UP_DEPARTMENT+sharedPreferences.getString(Tags.DEPARTMENT,"")
+                +UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.PARAM_USER_PROF_UP_AS_OF_DATE+URLEncoder.encode(sharedPreferences.getString(Tags.AS_OF_DATE, ""), UrlEndpoints.URL_ENCODER)
+                +UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.PARAM_USER_PROF_UP_EMAIL+sharedPreferences.getString(Tags.EMAIL,"")
+                +UrlEndpoints.URL_CHAR_AMEPERSAND+UrlEndpoints.PARAM_USER_PROF_UP_TOTAL_SCORE+sharedPreferences.getInt(Tags.TOTAL_SCORE, 0);Log.m("Url is "+ url);
+        Log.m("ürl is "+ url);
+        return url;
     }
     private void initToolbar() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.resultToolbar);

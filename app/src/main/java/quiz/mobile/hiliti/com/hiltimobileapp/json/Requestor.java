@@ -80,7 +80,7 @@ public class Requestor {
         jsonArrayRequest.setTag(questionTag);
         requestQueue.add(jsonArrayRequest);
         try {
-            jsonArray = requestFuture.get(3000, TimeUnit.MILLISECONDS);
+            jsonArray = requestFuture.get(10000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             Log.m(e + "");
         } catch (ExecutionException e) {
@@ -99,7 +99,7 @@ public class Requestor {
             stringRequest.setTag(answeredHistoryTag);
             requestQueue.add(stringRequest);
             try{
-                response = requestFuture.get(3000,TimeUnit.MILLISECONDS);
+                response = requestFuture.get(10000,TimeUnit.MILLISECONDS);
                 Log.m("response is  "+response);
             } catch (InterruptedException e) {
                Log.m("interruped exception");

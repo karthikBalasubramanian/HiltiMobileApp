@@ -132,19 +132,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
                     toast.show();
                     return;
                 }
-//                if(userAnswerList.get(currentQuestionIndex) == null) {
-//                    Toast toast;
-//                    toast = Toast.makeText(QuestionDisplayActivity.this, "Please select an answer.", Toast.LENGTH_SHORT);
-//                    toast.show();
-//                    return;
-//                }
 
-//                Reset the toggle buttons
-//                RadioButton button;
-//                for (int j = 0; j < group.getChildCount(); j++) {
-//                    button = (RadioButton) group.getChildAt(j);
-//                    button.setChecked(false);
-//                }
 
                 // ADDED THE BELOW LINE TO CLEAR THE CHECKED RADIO
                 group.clearCheck();
@@ -184,11 +172,6 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
     }
 
 
-//    public void onToggle(View view) {
-//        ((RadioGroup)view.getParent()).check(view.getId());
-//        // option specific code
-//        displayQuestion();
-//    }
 
     public  void displayQuestion(){
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Display question invoked.");
@@ -234,8 +217,19 @@ public class QuestionDisplayActivity extends AppCompatActivity implements Questi
         this.questionList = questionsPojos;
         quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("quiz size"+ questionList.size());
         currentQuestionIndex = 0;
-        if(questionList.size()!=0){
+        if(questionList.size()> 1){
         displayQuestion();}
+        else if (questionList.size() == 1) {
+
+            quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("last question.");
+
+//            setCurrentQuestionIndex(getCurrentQuestionIndex() + 1);
+//            quiz.mobile.hiliti.com.hiltimobileapp.logging.Log.m("Current question incremented.");
+            buttonSubmit.setVisibility(View.VISIBLE);
+            buttonNext.setVisibility(View.INVISIBLE);
+
+            displayQuestion();
+        }
         else{
             Toast toast = Toast.makeText(this, "No questions are available. Please try later.", Toast.LENGTH_SHORT);
             toast.show();

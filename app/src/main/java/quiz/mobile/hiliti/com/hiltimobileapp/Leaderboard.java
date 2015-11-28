@@ -38,14 +38,7 @@ Button btnExit;
 
         if (leaderList.isEmpty()) new LeaderboardAsyncTask(this).execute();
 
-        btnExit = (Button) findViewById(R.id.btn_exitLeaderboard);
 
-        btnExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
 

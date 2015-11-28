@@ -52,7 +52,7 @@
         android:layout_gravity="center_horizontal"
         android:background="#f44437"
         android:padding="10dp"
-        android:text="Exit"
+        android:text="Finish"
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:layout_marginTop="10dp" />

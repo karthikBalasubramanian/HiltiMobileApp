@@ -55,12 +55,21 @@ public class TakeQuizOptions extends AppCompatActivity implements TopicsCallBack
         selectTopicsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch(v.getId()) {
+                if (topics==null)
+                {
+                    Toast.makeText(TakeQuizOptions.this,"Network connection isn't available. Please try again later.", Toast.LENGTH_LONG).show();
+                } else if (topics.length<1)
+                {
+                    Toast.makeText(TakeQuizOptions.this,"Network connection isn't available. Please try again later.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {   switch(v.getId()) {
                     case R.id.select_topics:
                         showSelectTopicsDialog();
                         break;
                     default:
                         break;
+                    }
                 }
             }
         });
@@ -128,15 +137,16 @@ finish();
         int count = topics.length;
         for(int i = 0; i < count; i++)
             checkedTopics[i] = selectedTopics.contains(topics[i]);
+
         DialogInterface.OnMultiChoiceClickListener topicsDialogListener = new DialogInterface.OnMultiChoiceClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if(isChecked)
-                    selectedTopics.add(topics[which]);
-                else
-                    selectedTopics.remove(topics[which]);
-                onChangeSelectedTopics();
-            }
+                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    if(isChecked)
+                        selectedTopics.add(topics[which]);
+                    else
+                        selectedTopics.remove(topics[which]);
+                    onChangeSelectedTopics();
+                }
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

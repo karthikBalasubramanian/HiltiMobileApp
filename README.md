@@ -11,14 +11,14 @@ Hilti Quiz-Train
   [![architecture.png](https://s23.postimg.org/m67h7huq3/architecture.png)](https://postimg.org/image/keeiclbd3/)
 
 
- This repository has the front-end Android app's code. If you want to take a look into the backend programming, please visit [here](https://github.com/karthikBalasubramanian/HiltiQuizApi)
+ This repository has the front-end Android app's code. If you want to take a look into the backend programming, please visit [here](https://github.com/karthikBalasubramanian/HiltiQuizApi).
 
 
 ## Demo
 
 [![Hilti Quiz-Train](https://i.ytimg.com/vi/f02qvCwok18/1.jpg)](https://youtu.be/f02qvCwok18 "Hilti Quiz-Train")
 
-## Final Presentation
+## Digital Strategy
 
 [![Digital Strategy](https://i.ytimg.com/vi/6BrfyR0hg7M/3.jpg)](https://youtu.be/6BrfyR0hg7M "Digital Strategy")
 
